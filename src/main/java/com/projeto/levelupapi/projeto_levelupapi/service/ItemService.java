@@ -5,6 +5,8 @@ import com.projeto.levelupapi.projeto_levelupapi.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ItemService {
 
@@ -19,5 +21,9 @@ public class ItemService {
         item.setName(name);
         item.setDescription(description);
         return itemRepository.save(item);
+    }
+
+    public List<Item> listarTodos() {
+        return itemRepository.findAll();
     }
 }
