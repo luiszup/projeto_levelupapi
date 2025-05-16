@@ -25,4 +25,8 @@ public class User {
     private int level = 1;
 
     private int xp = 0;
+
+@Enumerated(EnumType.STRING)
+@Column(nullable = false)
+private Role role = Role.USER;
 }
