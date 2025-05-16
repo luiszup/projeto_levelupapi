@@ -1,6 +1,6 @@
-package com.projeto.levelupapi.repository;
+package com.projeto.levelupapi.projeto_levelupapi.repository;
 
-import com.projeto.levelupapi.model.User;
+import com.projeto.levelupapi.projeto_levelupapi.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
