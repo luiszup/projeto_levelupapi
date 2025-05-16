@@ -1,6 +1,7 @@
 package com.projeto.levelupapi.projeto_levelupapi.service;
 
 import com.projeto.levelupapi.projeto_levelupapi.model.InventoryItem;
+import com.projeto.levelupapi.projeto_levelupapi.model.Item;
 import com.projeto.levelupapi.projeto_levelupapi.model.User;
 import com.projeto.levelupapi.projeto_levelupapi.repository.InventoryItemRepository;
 import com.projeto.levelupapi.projeto_levelupapi.repository.ItemRepository;
@@ -20,5 +21,16 @@ public class InventoryService {
 
     public List<InventoryItem> pegarInventario(User user) {
         return inventoryRepository.procurarPorJogador(user);
+    }
+
+    public InventoryItem adicionarItem(User user, String itemName, int quantity) {
+        Item item = itemRepository.procurarPorNome(itemName)
+                .orElseThrow(() -> new RuntimeException("Item não encontrado"));
+        InventoryItem inventoryItem = inventoryRepository.procurarPorJogadorEItem(user, item)
+                .orElse(new InventoryItem());
+        inventoryItem.setUser(user);
+        inventoryItem.setItem(item);
+        inventoryItem.setQuantity(inventoryItem.getQuantity() + quantity);
+        return inventoryRepository.save(inventoryItem);
     }
 }
