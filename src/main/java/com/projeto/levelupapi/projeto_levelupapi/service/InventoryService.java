@@ -13,11 +13,13 @@ import java.util.List;
 @Service
 public class InventoryService {
 
-    @Autowired
     private InventoryItemRepository inventoryRepository;
-
-    @Autowired
     private ItemRepository itemRepository;
+
+    public InventoryService(InventoryItemRepository inventoryRepository, ItemRepository itemRepository) {
+        this.inventoryRepository = inventoryRepository;
+        this.itemRepository = itemRepository;
+    }
 
     public List<InventoryItem> pegarInventario(User user) {
         return inventoryRepository.procurarPorJogador(user);
