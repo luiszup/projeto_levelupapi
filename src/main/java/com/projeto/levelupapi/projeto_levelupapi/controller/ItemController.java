@@ -13,8 +13,11 @@ import java.util.Map;
 @RequestMapping("/items")
 public class ItemController {
 
-    @Autowired
-    private ItemService itemService;
+    private final ItemService itemService;
+
+    public ItemController(ItemService itemService) {
+        this.itemService = itemService;
+    }
 
     @PostMapping
     public ResponseEntity<Item> criarItem (@RequestBody Map<String, String> body) {
