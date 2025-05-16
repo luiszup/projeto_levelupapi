@@ -13,8 +13,8 @@ import java.util.List;
 @Service
 public class InventoryService {
 
-    private InventoryItemRepository inventoryRepository;
-    private ItemRepository itemRepository;
+    private final InventoryItemRepository inventoryRepository;
+    private final ItemRepository itemRepository;
 
     public InventoryService(InventoryItemRepository inventoryRepository, ItemRepository itemRepository) {
         this.inventoryRepository = inventoryRepository;
