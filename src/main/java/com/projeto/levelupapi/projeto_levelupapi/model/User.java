@@ -1,4 +1,4 @@
-package com.projeto.levelupapi.model;
+package com.projeto.levelupapi.projeto_levelupapi.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
