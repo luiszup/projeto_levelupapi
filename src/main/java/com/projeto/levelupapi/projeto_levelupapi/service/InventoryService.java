@@ -33,4 +33,18 @@ public class InventoryService {
         inventoryItem.setQuantity(inventoryItem.getQuantity() + quantity);
         return inventoryRepository.save(inventoryItem);
     }
+
+    public void removerItem(User user, String itemName, int quantity) {
+        Item item = itemRepository.procurarPorNome(itemName)
+                .orElseThrow(() -> new RuntimeException("Item não encontrado"));
+        InventoryItem inventoryItem = inventoryRepository.procurarPorJogadorEItem(user, item)
+                .orElseThrow(() -> new RuntimeException("Item não está no inventário"));
+        int newQuantity = inventoryItem.getQuantity() - quantity;
+        if (newQuantity <= 0) {
+            inventoryRepository.delete(inventoryItem);
+        } else {
+            inventoryItem.setQuantity(newQuantity);
+            inventoryRepository.save(inventoryItem);
+        }
+    }
 }
