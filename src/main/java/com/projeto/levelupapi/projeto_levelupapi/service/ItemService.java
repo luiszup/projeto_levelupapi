@@ -11,8 +11,11 @@ import java.util.Optional;
 @Service
 public class ItemService {
 
-    @Autowired
-    private ItemRepository itemRepository;
+    private final ItemRepository itemRepository;
+
+    public ItemService(ItemRepository itemRepository) {
+        this.itemRepository = itemRepository;
+    }
 
     public Item criarItem(String name, String description) {
         if (itemRepository.procurarPorNome(name).isPresent()) {
