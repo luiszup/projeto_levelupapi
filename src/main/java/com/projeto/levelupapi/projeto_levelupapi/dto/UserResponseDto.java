@@ -1,4 +1,4 @@
-package com.projeto.levelupapi.dto;
+package com.projeto.levelupapi.projeto_levelupapi.dto;
 
 import lombok.Data;
 
