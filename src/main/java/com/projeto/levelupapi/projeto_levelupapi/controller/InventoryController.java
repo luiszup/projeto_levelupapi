@@ -1,7 +1,8 @@
 package com.projeto.levelupapi.projeto_levelupapi.controller;
 
-import com.projeto.levelupapi.exception.BadRequestException;
-import com.projeto.levelupapi.exception.ResourceNotFoundException;
+import com.projeto.levelupapi.projeto_levelupapi.exception.ResourceNotFoundException;
+import com.projeto.levelupapi.projeto_levelupapi.exception.BadRequestException;
+
 import com.projeto.levelupapi.projeto_levelupapi.model.InventoryItem;
 import com.projeto.levelupapi.projeto_levelupapi.model.User;
 import com.projeto.levelupapi.projeto_levelupapi.service.InventoryService;

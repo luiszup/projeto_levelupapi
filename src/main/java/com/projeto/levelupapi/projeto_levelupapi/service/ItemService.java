@@ -1,7 +1,8 @@
 package com.projeto.levelupapi.projeto_levelupapi.service;
 
-import com.projeto.levelupapi.exception.ResourceAlreadyExistsException;
-import com.projeto.levelupapi.exception.ResourceNotFoundException;
+import com.projeto.levelupapi.projeto_levelupapi.exception.ResourceAlreadyExistsException;
+import com.projeto.levelupapi.projeto_levelupapi.exception.ResourceNotFoundException;
+import com.projeto.levelupapi.projeto_levelupapi.exception.BadRequestException;
 import com.projeto.levelupapi.projeto_levelupapi.model.Item;
 import com.projeto.levelupapi.projeto_levelupapi.repository.ItemRepository;
 import org.springframework.stereotype.Service;
