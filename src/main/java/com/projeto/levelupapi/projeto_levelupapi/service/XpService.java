@@ -1,9 +1,9 @@
-package com.projeto.levelupapi.service;
+package com.projeto.levelupapi.projeto_levelupapi.service;
 
-import com.projeto.levelupapi.model.Xp;
-import com.projeto.levelupapi.repository.XpRepository;
-import com.projeto.levelupapi.model.User;
-import com.projeto.levelupapi.repository.UserRepository;
+import com.projeto.levelupapi.projeto_levelupapi.model.Xp;
+import com.projeto.levelupapi.projeto_levelupapi.repository.XpRepository;
+import com.projeto.levelupapi.projeto_levelupapi.model.User;
+import com.projeto.levelupapi.projeto_levelupapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
