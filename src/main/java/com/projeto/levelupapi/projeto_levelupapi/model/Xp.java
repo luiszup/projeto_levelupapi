@@ -1,3 +1,4 @@
+
 package com.projeto.levelupapi.projeto_levelupapi.model;
 
 import jakarta.persistence.*;
