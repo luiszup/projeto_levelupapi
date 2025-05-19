@@ -6,27 +6,26 @@ import lombok.*;
 
 @Entity
 @Table(name = "users")
-@Data // Gera getters, setters, toString, equals e hashCode
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
     @NotBlank
     @Column(unique = true, nullable = false)
     private String username;
-
+    
     @NotBlank
     private String password;
+    
 
-    private int level = 1;
-
-    private int xp = 0;
-
-@Enumerated(EnumType.STRING)
-@Column(nullable = false)
-private Role role = Role.USER;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role = Role.USER;
+    
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Xp xpData;
 }
