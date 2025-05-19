@@ -1,4 +1,4 @@
-package com.projeto.levelupapi.exception;
+package com.projeto.levelupapi.projeto_levelupapi.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

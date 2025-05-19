@@ -1,12 +1,13 @@
-package com.projeto.levelupapi.service;
+package com.projeto.levelupapi.projeto_levelupapi.service;
 
-import com.projeto.levelupapi.exception.ResourceNotFoundException;
-import com.projeto.levelupapi.model.Xp;
-import com.projeto.levelupapi.repository.XpRepository;
-import com.projeto.levelupapi.model.User;
-import com.projeto.levelupapi.repository.UserRepository;
+import com.projeto.levelupapi.projeto_levelupapi.exception.ResourceNotFoundException;
+import com.projeto.levelupapi.projeto_levelupapi.model.Xp;
+import com.projeto.levelupapi.projeto_levelupapi.repository.XpRepository;
+import com.projeto.levelupapi.projeto_levelupapi.model.User;
+import com.projeto.levelupapi.projeto_levelupapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import javax.transaction.Transactional;
 
 @Service
 public class XpService {
@@ -16,21 +17,44 @@ public class XpService {
     @Autowired
     private UserRepository userRepository;
 
+    // Método utilitário para obter ou criar XP para um usuário
+    private Xp getOrCreateXp(User user) {
+        return xpRepository.findByUserId(user.getId())
+                .orElseGet(() -> {
+                    Xp newXp = new Xp();
+                    newXp.setUser(user);
+                    newXp.setXpPoints(0);
+                    newXp.setLevel(1);
+                    return xpRepository.save(newXp);
+                });
+    }
+
     // Adiciona XP ao jogador
+    @Transactional
     public void adicionarXp(Long userId, int xpGanho) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("Usuário com ID " + userId + " não encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
                 
-        Xp xp = xpRepository.findByUserId(userId)
-                .orElse(new Xp(null, user, 0, 1));  // Cria um novo registro de XP se não existir ainda
-                
-        xp.addXp(xpGanho);  // Adiciona o XP ao jogador
-        xpRepository.save(xp);  // Persiste o novo XP
+        Xp xp = getOrCreateXp(user);
+        xp.addXp(xpGanho);
+        xpRepository.save(xp);
     }
 
     // Obtém a XP atual do jogador
     public Xp obterXp(Long userId) {
-        return xpRepository.findByUserId(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("XP não encontrado para o usuário com ID " + userId));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
+                
+        return getOrCreateXp(user);
+    }
+    
+    // Obtém o nível atual do jogador
+    public int obterNivel(Long userId) {
+        return obterXp(userId).getLevel();
+    }
+    
+    // Obtém os pontos de XP atual do jogador
+    public int obterPontosXp(Long userId) {
+        return obterXp(userId).getXpPoints();
     }
 }
