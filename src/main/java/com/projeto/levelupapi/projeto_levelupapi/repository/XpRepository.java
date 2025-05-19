@@ -1,6 +1,8 @@
-package com.projeto.levelupapi.repository;
 
-import com.projeto.levelupapi.model.Xp;
+package com.projeto.levelupapi.projeto_levelupapi.repository;
+
+import com.projeto.levelupapi.projeto_levelupapi.model.Xp;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

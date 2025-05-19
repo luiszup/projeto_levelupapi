@@ -1,6 +1,8 @@
-package com.projeto.levelupapi.controller;
 
-import com.projeto.levelupapi.service.XpService;
+package com.projeto.levelupapi.projeto_levelupapi.controller;
+
+import com.projeto.levelupapi.projeto_levelupapi.service.XpService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
