@@ -1,5 +1,6 @@
 package com.projeto.levelupapi.projeto_levelupapi.service;
 
+import com.projeto.levelupapi.exception.ResourceNotFoundException;
 import com.projeto.levelupapi.projeto_levelupapi.model.User;
 import com.projeto.levelupapi.projeto_levelupapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-
     @Autowired
     private UserRepository userRepository;
 
@@ -31,10 +31,14 @@ public class UserService {
             u.setUsername(novoUser.getUsername());
             u.setPassword(novoUser.getPassword());
             return userRepository.save(u);
-        }).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        }).orElseThrow(() -> new ResourceNotFoundException("Usuário com ID " + id + " não encontrado"));
     }
 
     public void deletar(Long id) {
+        // Verificar se o usuário existe antes de deletar
+        if (!userRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Usuário com ID " + id + " não encontrado");
+        }
         userRepository.deleteById(id);
     }
 }

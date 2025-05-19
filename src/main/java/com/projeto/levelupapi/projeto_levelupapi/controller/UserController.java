@@ -12,7 +12,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
-
     @Autowired
     private UserService userService;
 
@@ -36,12 +35,9 @@ public class UserController {
 
     @PutMapping("/{id}")
     public ResponseEntity<User> atualizar(@PathVariable Long id, @Valid @RequestBody User user) {
-        try {
-            User atualizado = userService.atualizar(id, user);
-            return ResponseEntity.ok(atualizado);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        // Remover o try-catch e deixar o GlobalExceptionHandler tratar
+        User atualizado = userService.atualizar(id, user);
+        return ResponseEntity.ok(atualizado);
     }
 
     @DeleteMapping("/{id}")
