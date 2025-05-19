@@ -1,5 +1,6 @@
 package com.projeto.levelupapi.projeto_levelupapi.infra.jwt;
 
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.Authentication;
@@ -32,5 +33,15 @@ public class JwtTokenProvider {
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
+    }
+
+    public boolean validateToken(String authToken) {
+        try {
+            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
+            return true;
+        } catch (JwtException | IllegalArgumentException e) {
+            System.out.println("Token inválido!");
+        }
+        return false;
     }
 }
