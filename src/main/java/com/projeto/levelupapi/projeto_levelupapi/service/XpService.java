@@ -38,13 +38,26 @@ public class XpService {
 
     // Adiciona XP ao jogador
     @Transactional
-    public void adicionarXp(Long userId, int xpGanho) {
+    public String adicionarXp(Long userId, int xpGanho) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
-                
         Xp xp = getOrCreateXp(user);
+        int oldLevel = xp.getLevel();
+        int oldXp = xp.getXpPoints();
+        // Limite de nível 100
+        if (xp.getLevel() >= 100) {
+            return "Você já atingiu o nível máximo (100). Não é possível ganhar mais XP.";
+        }
         xp.addXp(xpGanho);
+        if (xp.getLevel() > 100) {
+            xp.setLevel(100);
+            xp.setXpPoints(0);
+        }
         xpRepository.save(xp);
+        if (xp.getLevel() > oldLevel) {
+            return "Parabéns! Você subiu para o nível " + xp.getLevel() + "! Volte para a Zona de Segurança para escolher seu novo item.";
+        }
+        return "XP adicionado com sucesso. XP atual: " + xp.getXpPoints() + ", Nível atual: " + xp.getLevel();
     }
 
     // Obtém a XP atual do jogador

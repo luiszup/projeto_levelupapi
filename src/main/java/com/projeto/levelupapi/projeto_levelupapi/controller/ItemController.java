@@ -23,7 +23,7 @@ public class ItemController {
 
     @PostMapping
     public ResponseEntity<Item> criarItem (@RequestBody Map<String, String> body) {
-        Item item = itemService.criarItem(
+        Item item = itemService.createItem(
                 body.get("name"),
                 body.get("description")
         );
@@ -32,7 +32,7 @@ public class ItemController {
 
     @GetMapping
     public List<Item> listarTodos() {
-        return itemService.listarTodos();
+        return itemService.listAll();
     }
 
     @GetMapping("/paged")

@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.Optional;
 
 public interface ItemRepository extends JpaRepository<Item, Long> {
-    Optional<Item> procurarPorNome(String name);
+    Optional<Item> findByName(String name);
 
     Page<Item> findAll(Pageable pageable);
 }

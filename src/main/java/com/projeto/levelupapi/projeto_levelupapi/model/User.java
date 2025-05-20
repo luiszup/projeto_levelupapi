@@ -29,4 +29,7 @@ public class User {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "xp_id")
     private Xp xpData;
+
+    @Column(nullable = false)
+    private boolean inSafeZone = true;
 }

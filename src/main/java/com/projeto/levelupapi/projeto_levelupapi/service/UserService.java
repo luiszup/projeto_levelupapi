@@ -3,9 +3,11 @@ package com.projeto.levelupapi.projeto_levelupapi.service;
 import com.projeto.levelupapi.projeto_levelupapi.exception.ResourceNotFoundException;
 import com.projeto.levelupapi.projeto_levelupapi.model.User;
 import com.projeto.levelupapi.projeto_levelupapi.model.Xp;
+import com.projeto.levelupapi.projeto_levelupapi.model.InventoryItem;
+import com.projeto.levelupapi.projeto_levelupapi.model.Item;
 import com.projeto.levelupapi.projeto_levelupapi.repository.UserRepository;
 import com.projeto.levelupapi.projeto_levelupapi.repository.XpRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.projeto.levelupapi.projeto_levelupapi.repository.ItemRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
@@ -21,13 +23,16 @@ public class UserService {
     private final UserRepository userRepository;
     private final XpRepository xpRepository;
     private final PasswordEncoder passwordEncoder;
+    private final InventoryService inventoryService;
+    private final ItemRepository itemRepository;
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
-    @Autowired
-    public UserService(UserRepository userRepository, XpRepository xpRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, XpRepository xpRepository, PasswordEncoder passwordEncoder, InventoryService inventoryService, ItemRepository itemRepository) {
         this.userRepository = userRepository;
         this.xpRepository = xpRepository;
         this.passwordEncoder = passwordEncoder;
+        this.inventoryService = inventoryService;
+        this.itemRepository = itemRepository;
     }
 
     public List<User> listarTodos() {
@@ -54,8 +59,27 @@ public class UserService {
         xpInicial.setLevel(1);
         xpRepository.save(xpInicial);
         
+        adicionarItensIniciais(savedUser);
+        
         logger.info("Usuário criado com sucesso: {} (ID: {})", savedUser.getUsername(), savedUser.getId());
         return savedUser;
+    }
+
+    private void adicionarItensIniciais(User user) {
+        adicionarItemAoInventario(user, "Mapa do Jogo", "Ajuda a navegar pelas zonas do jogo", 1);
+        adicionarItemAoInventario(user, "Poção de Cura", "Recupera HP", 3);
+        adicionarItemAoInventario(user, "Espada de Madeira", "Arma básica para início de combate", 1);
+        adicionarItemAoInventario(user, "Escudo de Couro", "Proteção básica para defesa", 1);
+    }
+
+    private void adicionarItemAoInventario(User user, String nome, String descricao, int quantidade) {
+        Item item = itemRepository.findByName(nome).orElseGet(() -> {
+            Item novo = new Item();
+            novo.setName(nome);
+            novo.setDescription(descricao);
+            return itemRepository.save(novo);
+        });
+        inventoryService.adicionarItem(user, nome, quantidade);
     }
 
     public User atualizar(Long id, User novoUser) {

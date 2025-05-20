@@ -1,0 +1,23 @@
+REM Obter dados do usuário
+curl -X GET http://localhost:8080/api/users/1 -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ3NzYwNTYzLCJleHAiOjE3NDg2MjQ1NjN9.iJDtSoGkZzvAHqpZ386EdJc8YWOFmoKSLIQWGAg9uj4"
+
+REM Adicionar XP ao usuário
+curl -X POST "http://localhost:8080/api/xp/1/add?xpGanho=100" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ3NzYwNTYzLCJleHAiOjE3NDg2MjQ1NjN9.iJDtSoGkZzvAHqpZ386EdJc8YWOFmoKSLIQWGAg9uj4"
+
+REM Consultar XP do usuário
+curl -X GET http://localhost:8080/api/xp/1 -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ3NzYwNTYzLCJleHAiOjE3NDg2MjQ1NjN9.iJDtSoGkZzvAHqpZ386EdJc8YWOFmoKSLIQWGAg9uj4"
+
+REM Entrar na Zona de Segurança
+curl -X POST http://localhost:8080/api/safezone/1/enter -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ3NzYwNTYzLCJleHAiOjE3NDg2MjQ1NjN9.iJDtSoGkZzvAHqpZ386EdJc8YWOFmoKSLIQWGAg9uj4"
+
+REM Sair da Zona de Segurança
+curl -X POST http://localhost:8080/api/safezone/1/exit -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ3NzYwNTYzLCJleHAiOjE3NDg2MjQ1NjN9.iJDtSoGkZzvAHqpZ386EdJc8YWOFmoKSLIQWGAg9uj4"
+
+REM Listar itens desbloqueáveis por nível
+curl -X GET http://localhost:8080/api/levelup/1/available-items -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ3NzYwNTYzLCJleHAiOjE3NDg2MjQ1NjN9.iJDtSoGkZzvAHqpZ386EdJc8YWOFmoKSLIQWGAg9uj4"
+
+REM Escolher item ao subir de nível
+curl -X POST http://localhost:8080/api/levelup/1/choose-item -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ3NzYwNTYzLCJleHAiOjE3NDg2MjQ1NjN9.iJDtSoGkZzvAHqpZ386EdJc8YWOFmoKSLIQWGAg9uj4" -H "Content-Type: application/json" -d "{\"itemName\":\"Espada de Ferro\"}"
+
+REM Consultar inventário do usuário
+curl -X GET http://localhost:8080/api/inventory/1 -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ3NzYwNTYzLCJleHAiOjE3NDg2MjQ1NjN9.iJDtSoGkZzvAHqpZ386EdJc8YWOFmoKSLIQWGAg9uj4"

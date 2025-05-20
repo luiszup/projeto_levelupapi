@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Arrays;
 
 @Service
 public class ItemService {
@@ -25,7 +26,7 @@ public class ItemService {
 
     public Item createItem(String name, String description) {
         logger.info("Creating item: {}", name);
-        if (itemRepository.procurarPorNome(name).isPresent()) {
+        if (itemRepository.findByName(name).isPresent()) {
             logger.warn("Item already exists: {}", name);
             throw new ResourceAlreadyExistsException("O item com nome '" + name + "' já existe");
         }
@@ -47,12 +48,25 @@ public class ItemService {
         return itemRepository.findAll(pageable);
     }
 
-    public Optional<Item> procurarPorNome(String name) {
-        return itemRepository.procurarPorNome(name);
+    public Optional<Item> findByName(String name) {
+        return itemRepository.findByName(name);
     }
     
     public Item buscarPorNomeObrigatorio(String name) {
-        return itemRepository.procurarPorNome(name)
+        return itemRepository.findByName(name)
                 .orElseThrow(() -> new ResourceNotFoundException("Item com nome '" + name + "' não encontrado"));
+    }
+
+    public List<String> getAvailableItemsForLevel(int level) {
+        // Exemplo de desbloqueio por nível
+        if (level == 2) {
+            return Arrays.asList("Espada de Ferro", "Elmo de Couro");
+        } else if (level == 3) {
+            return Arrays.asList("Machado de Ferro", "Poção de Mana", "Armadura Reforçada");
+        } else if (level == 4) {
+            return Arrays.asList("Arco Longo", "Botas de Velocidade");
+        }
+        // ...adicionar mais conforme necessidade...
+        return Arrays.asList();
     }
 }
