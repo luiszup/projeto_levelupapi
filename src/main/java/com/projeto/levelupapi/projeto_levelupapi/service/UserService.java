@@ -35,7 +35,7 @@ public class UserService {
         this.itemRepository = itemRepository;
     }
 
-    public List<User> listarTodos() {
+    public List<User> listAll() {
         return userRepository.findAll();
     }
 
@@ -44,12 +44,12 @@ public class UserService {
         return userRepository.findAll(pageable);
     }
 
-    public Optional<User> buscarPorId(Long id) {
+    public Optional<User> findById(Long id) {
         return userRepository.findById(id);
     }
 
-    public User criar(User user) {
-        logger.info("Criando novo usuário: {}", user.getUsername());
+    public User create(User user) {
+        logger.info("Creating new user: {}", user.getUsername());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         User savedUser = userRepository.save(user);
         
@@ -59,46 +59,46 @@ public class UserService {
         xpInicial.setLevel(1);
         xpRepository.save(xpInicial);
         
-        adicionarItensIniciais(savedUser);
+        addInitialItems(savedUser);
         
-        logger.info("Usuário criado com sucesso: {} (ID: {})", savedUser.getUsername(), savedUser.getId());
+        logger.info("User created successfully: {} (ID: {})", savedUser.getUsername(), savedUser.getId());
         return savedUser;
     }
 
-    private void adicionarItensIniciais(User user) {
-        adicionarItemAoInventario(user, "Mapa do Jogo", "Ajuda a navegar pelas zonas do jogo", 1);
-        adicionarItemAoInventario(user, "Poção de Cura", "Recupera HP", 3);
-        adicionarItemAoInventario(user, "Espada de Madeira", "Arma básica para início de combate", 1);
-        adicionarItemAoInventario(user, "Escudo de Couro", "Proteção básica para defesa", 1);
+    private void addInitialItems(User user) {
+        addItemToInventory(user, "Mapa do Jogo", "Ajuda a navegar pelas zonas do jogo", 1);
+        addItemToInventory(user, "Poção de Cura", "Recupera HP", 3);
+        addItemToInventory(user, "Espada de Madeira", "Arma básica para início de combate", 1);
+        addItemToInventory(user, "Escudo de Couro", "Proteção básica para defesa", 1);
     }
 
-    private void adicionarItemAoInventario(User user, String nome, String descricao, int quantidade) {
-        Item item = itemRepository.findByName(nome).orElseGet(() -> {
+    private void addItemToInventory(User user, String name, String description, int quantity) {
+        Item item = itemRepository.findByName(name).orElseGet(() -> {
             Item novo = new Item();
-            novo.setName(nome);
-            novo.setDescription(descricao);
+            novo.setName(name);
+            novo.setDescription(description);
             return itemRepository.save(novo);
         });
-        inventoryService.adicionarItem(user, nome, quantidade);
+        inventoryService.addItem(user, name, quantity);
     }
 
-    public User atualizar(Long id, User novoUser) {
+    public User update(Long id, User newUser) {
         return userRepository.findById(id).map(u -> {
-            u.setUsername(novoUser.getUsername());
-            if (!novoUser.getPassword().equals(u.getPassword())) {
-                u.setPassword(passwordEncoder.encode(novoUser.getPassword()));
+            u.setUsername(newUser.getUsername());
+            if (!newUser.getPassword().equals(u.getPassword())) {
+                u.setPassword(passwordEncoder.encode(newUser.getPassword()));
             }
             return userRepository.save(u);
-        }).orElseThrow(() -> new ResourceNotFoundException("Usuário com ID " + id + " não encontrado"));
+        }).orElseThrow(() -> new ResourceNotFoundException("User with ID " + id + " not found"));
     }
 
-    public void deletar(Long id) {
-        logger.warn("Tentando deletar usuário com ID: {}", id);
+    public void delete(Long id) {
+        logger.warn("Trying to delete user with ID: {}", id);
         if (!userRepository.existsById(id)) {
-            logger.error("Usuário com ID {} não encontrado para deleção", id);
-            throw new ResourceNotFoundException("Usuário com ID " + id + " não encontrado");
+            logger.error("User with ID {} not found for deletion", id);
+            throw new ResourceNotFoundException("User with ID " + id + " not found");
         }
         userRepository.deleteById(id);
-        logger.info("Usuário deletado com sucesso: {}", id);
+        logger.info("User deleted successfully: {}", id);
     }
 }

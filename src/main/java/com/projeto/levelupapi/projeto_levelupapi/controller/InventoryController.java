@@ -30,35 +30,29 @@ public class InventoryController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<List<InventoryItem>> obterInventario(@PathVariable Long userId) {
-        User user = userService.buscarPorId(userId)
+    public ResponseEntity<List<InventoryItem>> getInventory(@PathVariable Long userId) {
+        User user = userService.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário com ID " + userId + " não encontrado"));
-        
-        List<InventoryItem> inventory = inventoryService.pegarInventario(user);
+        List<InventoryItem> inventory = inventoryService.getInventory(user);
         return ResponseEntity.ok(inventory);
     }
 
     @GetMapping("/paged")
     public Page<InventoryItem> getInventoryPaged(@PathVariable Long userId, Pageable pageable) {
-        User user = userService.buscarPorId(userId)
+        User user = userService.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário com ID " + userId + " não encontrado"));
         return inventoryService.listInventory(user, pageable);
     }
 
     @PostMapping("/{userId}/add")
-    public ResponseEntity<InventoryItem> adicionarItem(
+    public ResponseEntity<InventoryItem> addItem(
             @PathVariable Long userId,
             @RequestBody Map<String, Object> body) {
-        
-        // Validações de entrada
         if (!body.containsKey("itemName") || body.get("itemName") == null) {
             throw new BadRequestException("Nome do item é obrigatório");
         }
-        
         String itemName = body.get("itemName").toString();
-        int quantity = 1;  // Valor padrão
-        
-        // Tente obter a quantidade, se fornecida
+        int quantity = 1;
         if (body.containsKey("quantity")) {
             try {
                 quantity = Integer.parseInt(body.get("quantity").toString());
@@ -69,28 +63,21 @@ public class InventoryController {
                 throw new BadRequestException("Quantidade inválida");
             }
         }
-        
-        User user = userService.buscarPorId(userId)
+        User user = userService.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário com ID " + userId + " não encontrado"));
-        
-        InventoryItem item = inventoryService.adicionarItem(user, itemName, quantity);
+        InventoryItem item = inventoryService.addItem(user, itemName, quantity);
         return ResponseEntity.ok(item);
     }
 
     @PostMapping("/{userId}/remove")
-    public ResponseEntity<Void> removerItem(
+    public ResponseEntity<Void> removeItem(
             @PathVariable Long userId,
             @RequestBody Map<String, Object> body) {
-        
-        // Validações de entrada
         if (!body.containsKey("itemName") || body.get("itemName") == null) {
             throw new BadRequestException("Nome do item é obrigatório");
         }
-        
         String itemName = body.get("itemName").toString();
-        int quantity = 1;  // Valor padrão
-        
-        // Tente obter a quantidade, se fornecida
+        int quantity = 1;
         if (body.containsKey("quantity")) {
             try {
                 quantity = Integer.parseInt(body.get("quantity").toString());
@@ -101,11 +88,9 @@ public class InventoryController {
                 throw new BadRequestException("Quantidade inválida");
             }
         }
-        
-        User user = userService.buscarPorId(userId)
+        User user = userService.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário com ID " + userId + " não encontrado"));
-        
-        inventoryService.removerItem(user, itemName, quantity);
+        inventoryService.removeItem(user, itemName, quantity);
         return ResponseEntity.ok().build();
     }
 }

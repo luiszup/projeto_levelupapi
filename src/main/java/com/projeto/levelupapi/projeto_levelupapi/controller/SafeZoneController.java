@@ -17,26 +17,26 @@ public class SafeZoneController {
 
     @PostMapping("/{userId}/enter")
     public ResponseEntity<String> enterSafeZone(@PathVariable Long userId) {
-        User user = userService.buscarPorId(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
+        User user = userService.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         user.setInSafeZone(true);
-        userService.atualizar(user.getId(), user);
+        userService.update(user.getId(), user);
         return ResponseEntity.ok("Você entrou na Zona de Segurança.");
     }
 
     @PostMapping("/{userId}/exit")
     public ResponseEntity<String> exitSafeZone(@PathVariable Long userId) {
-        User user = userService.buscarPorId(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
+        User user = userService.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         user.setInSafeZone(false);
-        userService.atualizar(user.getId(), user);
+        userService.update(user.getId(), user);
         return ResponseEntity.ok("Você saiu da Zona de Segurança.");
     }
 
     @GetMapping("/{userId}/status")
     public ResponseEntity<Boolean> getSafeZoneStatus(@PathVariable Long userId) {
-        User user = userService.buscarPorId(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
+        User user = userService.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         return ResponseEntity.ok(user.isInSafeZone());
     }
 }

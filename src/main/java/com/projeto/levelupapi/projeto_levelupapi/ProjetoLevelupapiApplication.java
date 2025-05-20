@@ -26,7 +26,7 @@ public class ProjetoLevelupapiApplication {
 				admin.setPassword("admin"); // senha em texto puro, será codificada pelo UserService
 				admin.setRole(Role.ADMIN);
 				admin.setInSafeZone(true);
-				userService.criar(admin);
+				userService.create(admin);
 				System.out.println("Usuário ADMIN padrão criado: admin/admin");
 			}
 		};

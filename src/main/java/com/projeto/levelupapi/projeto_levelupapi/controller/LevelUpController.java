@@ -25,8 +25,8 @@ public class LevelUpController {
 
     @GetMapping("/{userId}/available-items")
     public ResponseEntity<List<String>> getAvailableItems(@PathVariable Long userId) {
-        User user = userService.buscarPorId(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
+        User user = userService.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         int level = user.getXpData() != null ? user.getXpData().getLevel() : 1;
         return ResponseEntity.ok(itemService.getAvailableItemsForLevel(level));
     }
@@ -37,8 +37,8 @@ public class LevelUpController {
         if (itemName == null) {
             return ResponseEntity.badRequest().body("Nome do item é obrigatório");
         }
-        User user = userService.buscarPorId(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
+        User user = userService.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         if (!user.isInSafeZone()) {
             return ResponseEntity.badRequest().body("Você precisa estar na Zona de Segurança para escolher um item de level up.");
         }
@@ -47,7 +47,7 @@ public class LevelUpController {
         if (!available.contains(itemName)) {
             return ResponseEntity.badRequest().body("Item não disponível para o seu nível");
         }
-        inventoryService.adicionarItem(user, itemName, 1);
+        inventoryService.addItem(user, itemName, 1);
         return ResponseEntity.ok("Item " + itemName + " adicionado ao inventário!");
     }
 }

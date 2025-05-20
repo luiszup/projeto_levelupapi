@@ -26,7 +26,7 @@ public class UserController {
 
     @GetMapping
     public List<UserResponseDto> getAllUsers() {
-        return userService.listarTodos().stream().map(user -> {
+        return userService.listAll(Pageable.unpaged()).stream().map(user -> {
             UserResponseDto dto = new UserResponseDto();
             dto.setId(user.getId());
             dto.setUsername(user.getUsername());
@@ -50,7 +50,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDto> getUserById(@PathVariable Long id) {
-        return userService.buscarPorId(id)
+        return userService.findById(id)
                 .map(user -> {
                     UserResponseDto dto = new UserResponseDto();
                     dto.setId(user.getId());
@@ -67,7 +67,7 @@ public class UserController {
         User user = new User();
         user.setUsername(userRequestDto.getUsername());
         user.setPassword(userRequestDto.getPassword());
-        User novo = userService.criar(user);
+        User novo = userService.create(user);
         UserResponseDto dto = new UserResponseDto();
         dto.setId(novo.getId());
         dto.setUsername(novo.getUsername());
@@ -81,7 +81,7 @@ public class UserController {
         User user = new User();
         user.setUsername(userRequestDto.getUsername());
         user.setPassword(userRequestDto.getPassword());
-        User atualizado = userService.atualizar(id, user);
+        User atualizado = userService.update(id, user);
         UserResponseDto dto = new UserResponseDto();
         dto.setId(atualizado.getId());
         dto.setUsername(atualizado.getUsername());
@@ -92,7 +92,7 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        userService.deletar(id);
+        userService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }

@@ -51,11 +51,6 @@ public class ItemService {
     public Optional<Item> findByName(String name) {
         return itemRepository.findByName(name);
     }
-    
-    public Item buscarPorNomeObrigatorio(String name) {
-        return itemRepository.findByName(name)
-                .orElseThrow(() -> new ResourceNotFoundException("Item com nome '" + name + "' não encontrado"));
-    }
 
     public List<String> getAvailableItemsForLevel(int level) {
         // Exemplo de desbloqueio por nível
