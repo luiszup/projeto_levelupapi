@@ -1,0 +1,97 @@
+name: LevelUpAPI CI/CD
+
+on:
+  push:
+    branches: [ main, develop, infra ]  # Adicionada a branch infra
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:  # Permite execução manual do workflow
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    
+    - name: Run Tests
+      run: mvn test
+    
+    - name: Upload build artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: levelup-api-jar
+        path: target/*.jar
+
+  # Este job só executa para as branches main e infra quando o build for bem-sucedido
+  deploy:
+    needs: build
+    if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/infra') && success()  # Modificado para incluir infra
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Download build artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: levelup-api-jar
+        path: ./
+    
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.7.0
+      with:
+        ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
+    
+    - name: Deploy to EC2
+      env:
+        EC2_HOST: ${{ secrets.EC2_HOST }}
+        EC2_USERNAME: ${{ secrets.EC2_USERNAME }}
+      run: |
+        # Transferir o JAR para o servidor
+        scp -o StrictHostKeyChecking=no *.jar $EC2_USERNAME@$EC2_HOST:~/levelup-api.jar
+        
+        # Executar script de deploy remoto
+        ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_HOST << 'EOF'
+          # Parar o contêiner atual se existir
+          podman stop levelup-api || true
+          podman rm levelup-api || true
+          
+          # Construir nova imagem
+          cd ~
+          echo "FROM eclipse-temurin:17-jdk-alpine" > Dockerfile
+          echo "COPY levelup-api.jar app.jar" >> Dockerfile
+          echo "ENTRYPOINT [\"java\",\"-jar\",\"/app.jar\"]" >> Dockerfile
+          
+          podman build -t levelup-api:latest .
+          
+          # Executar novo contêiner
+          podman run -d \
+            -p 8080:8080 \
+            -e SPRING_PROFILES_ACTIVE=prod \
+            -e SPRING_DATASOURCE_URL=${{ secrets.DB_URL }} \
+            -e SPRING_DATASOURCE_USERNAME=${{ secrets.DB_USERNAME }} \
+            -e SPRING_DATASOURCE_PASSWORD=${{ secrets.DB_PASSWORD }} \
+            -e APP_JWT_SECRET=${{ secrets.JWT_SECRET }} \
+            -e APP_JWT_EXPIRATION=86400000 \
+            --name levelup-api \
+            --restart=always \
+            levelup-api:latest
+          
+          # Fazer backup do banco de dados (opcional)
+          DATE=$(date +%Y%m%d_%H%M%S)
+          pg_dump -h ${{ secrets.DB_HOST }} -U ${{ secrets.DB_USERNAME }} -d levelupapi > ~/backup_$DATE.sql
+          
+          # Upload do backup para S3 (opcional)
+          aws s3 cp ~/backup_$DATE.sql s3://${{ secrets.S3_BUCKET }}/backups/
+          
+          echo "Deployment completed successfully!"
+        EOF
