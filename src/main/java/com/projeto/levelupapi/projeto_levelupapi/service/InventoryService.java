@@ -8,11 +8,16 @@ import com.projeto.levelupapi.projeto_levelupapi.model.User;
 import com.projeto.levelupapi.projeto_levelupapi.repository.InventoryItemRepository;
 import com.projeto.levelupapi.projeto_levelupapi.repository.ItemRepository;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 @Service
 public class InventoryService {
+    private static final Logger logger = LoggerFactory.getLogger(InventoryService.class);
     private final InventoryItemRepository inventoryRepository;
     private final ItemRepository itemRepository;
 
@@ -23,6 +28,11 @@ public class InventoryService {
 
     public List<InventoryItem> pegarInventario(User user) {
         return inventoryRepository.procurarPorJogador(user);
+    }
+
+    public Page<InventoryItem> listInventory(User user, Pageable pageable) {
+        logger.info("Listing inventory for user {} with pagination: page={}, size={}", user.getUsername(), pageable.getPageNumber(), pageable.getPageSize());
+        return inventoryRepository.procurarPorJogador(user, pageable);
     }
 
     public InventoryItem adicionarItem(User user, String itemName, int quantity) {

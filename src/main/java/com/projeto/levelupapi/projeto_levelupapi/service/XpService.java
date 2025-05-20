@@ -1,4 +1,3 @@
-
 package com.projeto.levelupapi.projeto_levelupapi.service;
 
 import com.projeto.levelupapi.projeto_levelupapi.exception.ResourceNotFoundException;
@@ -10,6 +9,10 @@ import com.projeto.levelupapi.projeto_levelupapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Service
 public class XpService {
@@ -18,6 +21,8 @@ public class XpService {
     
     @Autowired
     private UserRepository userRepository;
+
+    private static final Logger logger = LoggerFactory.getLogger(XpService.class);
 
     // Método utilitário para obter ou criar XP para um usuário
     private Xp getOrCreateXp(User user) {
@@ -58,5 +63,10 @@ public class XpService {
     // Obtém os pontos de XP atual do jogador
     public int obterPontosXp(Long userId) {
         return obterXp(userId).getXpPoints();
+    }
+
+    public Page<Xp> listAll(Pageable pageable) {
+        logger.info("Listing all XP records with pagination: page={}, size={}", pageable.getPageNumber(), pageable.getPageSize());
+        return xpRepository.findAll(pageable);
     }
 }

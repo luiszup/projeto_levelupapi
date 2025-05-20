@@ -6,14 +6,17 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Date;
 
 @Component
 public class JwtTokenProvider {
 
-    private final String jwtSecret = "chave_secreta";
-    private final int jwtExpirationMs = 86400000;
+    @Value("${jwt.secret}")
+    private String jwtSecret;
+    @Value("${jwt.expiration}")
+    private int jwtExpirationMs;
 
     public String generateToken(Authentication authentication) {
         User userPrincipal = (User) authentication.getPrincipal();

@@ -10,6 +10,8 @@ import com.projeto.levelupapi.projeto_levelupapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Map;
@@ -34,6 +36,13 @@ public class InventoryController {
         
         List<InventoryItem> inventory = inventoryService.pegarInventario(user);
         return ResponseEntity.ok(inventory);
+    }
+
+    @GetMapping("/paged")
+    public Page<InventoryItem> getInventoryPaged(@PathVariable Long userId, Pageable pageable) {
+        User user = userService.buscarPorId(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuário com ID " + userId + " não encontrado"));
+        return inventoryService.listInventory(user, pageable);
     }
 
     @PostMapping("/{userId}/add")
