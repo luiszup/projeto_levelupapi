@@ -1,4 +1,3 @@
-
 package com.projeto.levelupapi.projeto_levelupapi.model;
 
 import jakarta.persistence.*;
@@ -15,7 +14,7 @@ public class Xp {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;  // Relacionamento com a entidade User
 
