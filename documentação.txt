@@ -1,0 +1,96 @@
+# Documentação do Projeto LevelUpAPI
+
+## Objetivo do Projeto
+O LevelUpAPI é uma API RESTful desenvolvida em Java com Spring Boot para gerenciar a progressão de jogadores em um RPG. O sistema permite cadastro de usuários, controle de experiência (XP), níveis, inventário de itens, escolha de recompensas ao subir de nível, e lógica de Zona de Segurança. O projeto é voltado para servir como backend de jogos, sistemas de gamificação ou plataformas de aprendizado baseadas em progressão.
+
+## Proposta
+- Gerenciar usuários e autenticação JWT.
+- Controlar XP, níveis e progressão de jogadores.
+- Gerenciar inventário de itens, adição e remoção.
+- Permitir escolha de itens ao subir de nível, respeitando regras de Zona de Segurança.
+- Fornecer endpoints seguros e documentados via Swagger/OpenAPI.
+- Pronto para deploy em ambientes cloud (AWS, Docker, etc).
+
+## Principais Classes e Atributos
+
+### 1. User
+- `id`: Long — Identificador único do usuário.
+- `username`: String — Nome de login.
+- `password`: String — Senha (criptografada).
+- `role`: Enum (ADMIN, USER) — Papel do usuário.
+- `inSafeZone`: boolean — Indica se está na Zona de Segurança.
+- `xpData`: Xp — Dados de experiência e nível.
+
+### 2. Xp
+- `id`: Long
+- `user`: User — Relacionamento com usuário.
+- `xpPoints`: int — Pontos de experiência.
+- `level`: int — Nível atual.
+
+### 3. Item
+- `id`: Long
+- `name`: String — Nome do item.
+- `description`: String — Descrição do item.
+
+### 4. InventoryItem
+- `id`: Long
+- `user`: User — Dono do item.
+- `item`: Item — Item referenciado.
+- `quantity`: int — Quantidade no inventário.
+
+## Principais Métodos e Endpoints
+
+### Autenticação
+- `POST /api/auth/login` — Login e obtenção de token JWT.
+
+### Usuários
+- `GET /api/users` — Listar todos os usuários.
+- `GET /api/users/{id}` — Buscar usuário por ID.
+- `POST /api/users` — Criar novo usuário.
+- `PUT /api/users/{id}` — Atualizar usuário.
+- `DELETE /api/users/{id}` — Remover usuário.
+
+### XP e Nível
+- `POST /api/xp/{userId}/add?xpGanho=valor` — Adicionar XP ao usuário.
+- `GET /api/xp/{userId}` — Consultar XP do usuário.
+
+### Inventário
+- `GET /api/inventory/{userId}` — Listar inventário do usuário.
+- `POST /api/inventory/{userId}/add` — Adicionar item ao inventário.
+- `POST /api/inventory/{userId}/remove` — Remover item do inventário.
+
+### Itens
+- `GET /items` — Listar todos os itens disponíveis.
+- `POST /items` — Criar novo item.
+
+### Level Up
+- `GET /api/levelup/{userId}/available-items` — Listar itens desbloqueáveis pelo nível.
+- `POST /api/levelup/{userId}/choose-item` — Escolher item ao subir de nível (apenas na Zona de Segurança).
+
+### Zona de Segurança
+- `POST /api/safezone/{userId}/enter` — Entrar na Zona de Segurança.
+- `POST /api/safezone/{userId}/exit` — Sair da Zona de Segurança.
+- `GET /api/safezone/{userId}/status` — Consultar status da Zona de Segurança.
+
+## Lógica e Regras de Negócio
+- Usuário só pode escolher item de level up se estiver na Zona de Segurança.
+- XP é acumulado e, ao atingir o necessário, o usuário sobe de nível.
+- Cada nível pode desbloquear novos itens.
+- Inventário permite múltiplos itens e quantidades.
+- Mensagens de negócio são retornadas em português.
+
+## Segurança
+- Autenticação via JWT.
+- Endpoints protegidos por roles (ADMIN/USER).
+
+## Documentação e Testes
+- Swagger/OpenAPI disponível para consulta dos endpoints.
+- Arquivo test_api_cmd.txt com exemplos de comandos curl para testes automatizados.
+
+## Deploy
+- Pronto para deploy em AWS, Docker, Podman, etc.
+- Configuração de banco de dados e JWT via application.properties.
+
+---
+
+Para dúvidas ou contribuições, consulte o código-fonte ou a documentação Swagger gerada automaticamente ao rodar o projeto.
