@@ -10,25 +10,25 @@ services:
       # Nome da aplicação
       SPRING_APPLICATION_NAME: projeto_levelupapi
       
-      # Configuração do banco de dados H2 em memória
-      SPRING_DATASOURCE_URL: jdbc:h2:mem:levelupapi
-      SPRING_DATASOURCE_USERNAME: sa
-      SPRING_DATASOURCE_PASSWORD: password
-      SPRING_JPA_DATABASE-PLATFORM: org.hibernate.dialect.H2Dialect
+      # Configuração do banco de dados PostgreSQL
+      # O Elastic Beanstalk automaticamente fornece estas variáveis
+      SPRING_DATASOURCE_URL: ${RDS_HOSTNAME:jdbc:postgresql://${RDS_HOSTNAME}:${RDS_PORT}/${RDS_DB_NAME}}
+      SPRING_DATASOURCE_USERNAME: ${RDS_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${RDS_PASSWORD}
+      SPRING_JPA_DATABASE-PLATFORM: org.hibernate.dialect.PostgreSQLDialect
       
       # Configuração JWT
-      APP_JWT_SECRET: chave_secreta_muito_longa_e_aleatoria_para_seguranca
-      APP_JWT_EXPIRATION: 86400000
+      APP_JWT_SECRET: ${JWT_SECRET:chave_secreta_muito_longa_e_aleatoria_para_seguranca}
+      APP_JWT_EXPIRATION: ${JWT_EXPIRATION:86400000}
       
       # Perfil ativo
-      SPRING_PROFILES_ACTIVE: dev
+      SPRING_PROFILES_ACTIVE: prod
       
       # Configuração JPA
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       
-      # Habilitar console H2
-      SPRING_H2_CONSOLE_ENABLED: 'true'
-      SPRING_H2_CONSOLE_PATH: /h2-console
+      # Desabilitar console H2 em produção
+      SPRING_H2_CONSOLE_ENABLED: 'false'
     restart: always
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
