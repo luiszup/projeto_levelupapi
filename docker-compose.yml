@@ -4,8 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
+    network_mode: "host"  # Usar a rede do host diretamente
     environment:
       # Nome da aplicação
       SPRING_APPLICATION_NAME: projeto_levelupapi
@@ -25,6 +24,10 @@ services:
       # Configuração JPA
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
+      
+      # Configurações adicionais para timeout de conexão
+      SPRING_DATASOURCE_HIKARI_CONNECTION_TIMEOUT: 30000
+      SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE: 10
     restart: always
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
