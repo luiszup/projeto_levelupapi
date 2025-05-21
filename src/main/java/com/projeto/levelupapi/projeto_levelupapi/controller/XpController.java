@@ -15,14 +15,14 @@ public class XpController {
 
     // Endpoint para adicionar XP ao jogador
     @PostMapping("/{userId}/add")
-    public ResponseEntity<Void> addXp(@PathVariable Long userId, @RequestParam int xpGanho) {
-        xpService.addXp(userId, xpGanho);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<String> adicionarXp(@PathVariable Long userId, @RequestParam int xpGanho) {
+        String mensagem = xpService.adicionarXp(userId, xpGanho);
+        return ResponseEntity.ok(mensagem);
     }
 
     // Endpoint para obter a XP do jogador
     @GetMapping("/{userId}")
-    public ResponseEntity<Integer> getXp(@PathVariable Long userId) {
-        return ResponseEntity.ok(xpService.getXp(userId).getXpPoints());
+    public ResponseEntity<Integer> obterXp(@PathVariable Long userId) {
+        return ResponseEntity.ok(xpService.obterXp(userId).getXpPoints());
     }
 }

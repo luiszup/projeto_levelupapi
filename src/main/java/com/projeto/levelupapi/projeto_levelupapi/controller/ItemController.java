@@ -5,6 +5,8 @@ import com.projeto.levelupapi.projeto_levelupapi.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Map;
@@ -29,7 +31,12 @@ public class ItemController {
     }
 
     @GetMapping
-    public List<Item> findAll() {
-        return itemService.findAll();
+    public List<Item> getAllItems() {
+        return itemService.listAll();
+    }
+
+    @GetMapping("/paged")
+    public Page<Item> getAllItemsPaged(Pageable pageable) {
+        return itemService.listAll(pageable);
     }
 }
