@@ -4,13 +4,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    network_mode: "host"  # Usar a rede do host diretamente
+    network_mode: "host"
     environment:
       # Nome da aplicação
       SPRING_APPLICATION_NAME: projeto_levelupapi
       
-      # Configuração do banco de dados RDS usando IP diretamente
-      SPRING_DATASOURCE_URL: jdbc:postgresql://172.31.0.2:5432/levelupapi
+      # Configuração do banco de dados RDS usando IP diretamente com SSL
+      SPRING_DATASOURCE_URL: jdbc:postgresql://172.31.0.2:5432/levelupapi?sslmode=require
       SPRING_DATASOURCE_USERNAME: levelup_admin
       SPRING_DATASOURCE_PASSWORD: LevelUp123!
       
@@ -26,7 +26,7 @@ services:
       SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
       
       # Configurações adicionais para timeout de conexão
-      SPRING_DATASOURCE_HIKARI_CONNECTION_TIMEOUT: 30000
+      SPRING_DATASOURCE_HIKARI_CONNECTION_TIMEOUT: 60000
       SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE: 10
     restart: always
     healthcheck:
