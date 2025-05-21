@@ -10,8 +10,8 @@ services:
       # Nome da aplicação
       SPRING_APPLICATION_NAME: projeto_levelupapi
       
-      # Configuração do banco de dados RDS
-      SPRING_DATASOURCE_URL: jdbc:postgresql://levelup-db.c1o0a28cuetm.us-east-2.rds.amazonaws.com:5432/levelupapi
+      # Configuração do banco de dados RDS usando IP diretamente
+      SPRING_DATASOURCE_URL: jdbc:postgresql://172.31.0.2:5432/levelupapi
       SPRING_DATASOURCE_USERNAME: levelup_admin
       SPRING_DATASOURCE_PASSWORD: LevelUp123!
       
