@@ -1,4 +1,3 @@
-
 package com.projeto.levelupapi.projeto_levelupapi.controller;
 
 import com.projeto.levelupapi.projeto_levelupapi.service.XpService;
@@ -16,14 +15,14 @@ public class XpController {
 
     // Endpoint para adicionar XP ao jogador
     @PostMapping("/{userId}/add")
-    public ResponseEntity<Void> adicionarXp(@PathVariable Long userId, @RequestParam int xpGanho) {
-        xpService.adicionarXp(userId, xpGanho);
+    public ResponseEntity<Void> addXp(@PathVariable Long userId, @RequestParam int xpGanho) {
+        xpService.addXp(userId, xpGanho);
         return ResponseEntity.ok().build();
     }
 
     // Endpoint para obter a XP do jogador
     @GetMapping("/{userId}")
-    public ResponseEntity<Integer> obterXp(@PathVariable Long userId) {
-        return ResponseEntity.ok(xpService.obterXp(userId).getXpPoints());
+    public ResponseEntity<Integer> getXp(@PathVariable Long userId) {
+        return ResponseEntity.ok(xpService.getXp(userId).getXpPoints());
     }
 }

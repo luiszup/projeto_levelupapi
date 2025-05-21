@@ -28,16 +28,16 @@ public class InventoryController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<List<InventoryItem>> obterInventario(@PathVariable Long userId) {
-        User user = userService.buscarPorId(userId)
+    public ResponseEntity<List<InventoryItem>> getInventory(@PathVariable Long userId) {
+        User user = userService.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário com ID " + userId + " não encontrado"));
         
-        List<InventoryItem> inventory = inventoryService.pegarInventario(user);
+        List<InventoryItem> inventory = inventoryService.getInventory(user);
         return ResponseEntity.ok(inventory);
     }
 
     @PostMapping("/{userId}/add")
-    public ResponseEntity<InventoryItem> adicionarItem(
+    public ResponseEntity<InventoryItem> addItem(
             @PathVariable Long userId,
             @RequestBody Map<String, Object> body) {
         
@@ -61,15 +61,15 @@ public class InventoryController {
             }
         }
         
-        User user = userService.buscarPorId(userId)
+        User user = userService.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário com ID " + userId + " não encontrado"));
         
-        InventoryItem item = inventoryService.adicionarItem(user, itemName, quantity);
+        InventoryItem item = inventoryService.addItem(user, itemName, quantity);
         return ResponseEntity.ok(item);
     }
 
     @PostMapping("/{userId}/remove")
-    public ResponseEntity<Void> removerItem(
+    public ResponseEntity<Void> removeItem(
             @PathVariable Long userId,
             @RequestBody Map<String, Object> body) {
         
@@ -93,10 +93,10 @@ public class InventoryController {
             }
         }
         
-        User user = userService.buscarPorId(userId)
+        User user = userService.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário com ID " + userId + " não encontrado"));
         
-        inventoryService.removerItem(user, itemName, quantity);
+        inventoryService.removeItem(user, itemName, quantity);
         return ResponseEntity.ok().build();
     }
 }

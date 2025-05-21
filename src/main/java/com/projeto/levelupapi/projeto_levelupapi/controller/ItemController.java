@@ -20,8 +20,8 @@ public class ItemController {
     }
 
     @PostMapping
-    public ResponseEntity<Item> criarItem (@RequestBody Map<String, String> body) {
-        Item item = itemService.criarItem(
+    public ResponseEntity<Item> createItem (@RequestBody Map<String, String> body) {
+        Item item = itemService.createItem(
                 body.get("name"),
                 body.get("description")
         );
@@ -29,7 +29,7 @@ public class ItemController {
     }
 
     @GetMapping
-    public List<Item> listarTodos() {
-        return itemService.listarTodos();
+    public List<Item> findAll() {
+        return itemService.findAll();
     }
 }

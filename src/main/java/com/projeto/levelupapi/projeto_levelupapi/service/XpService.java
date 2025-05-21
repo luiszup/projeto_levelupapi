@@ -1,4 +1,3 @@
-
 package com.projeto.levelupapi.projeto_levelupapi.service;
 
 import com.projeto.levelupapi.projeto_levelupapi.exception.ResourceNotFoundException;
@@ -33,7 +32,7 @@ public class XpService {
 
     // Adiciona XP ao jogador
     @Transactional
-    public void adicionarXp(Long userId, int xpGanho) {
+    public void addXp(Long userId, int xpGanho) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
                 
@@ -43,7 +42,7 @@ public class XpService {
     }
 
     // Obtém a XP atual do jogador
-    public Xp obterXp(Long userId) {
+    public Xp getXp(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
                 
@@ -51,12 +50,12 @@ public class XpService {
     }
     
     // Obtém o nível atual do jogador
-    public int obterNivel(Long userId) {
-        return obterXp(userId).getLevel();
+    public int getLevel(Long userId) {
+        return getXp(userId).getLevel();
     }
     
     // Obtém os pontos de XP atual do jogador
-    public int obterPontosXp(Long userId) {
-        return obterXp(userId).getXpPoints();
+    public int getXpPoints(Long userId) {
+        return getXp(userId).getXpPoints();
     }
 }

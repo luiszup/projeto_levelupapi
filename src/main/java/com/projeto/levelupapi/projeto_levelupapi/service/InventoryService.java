@@ -21,19 +21,19 @@ public class InventoryService {
         this.itemRepository = itemRepository;
     }
 
-    public List<InventoryItem> pegarInventario(User user) {
-        return inventoryRepository.procurarPorJogador(user);
+    public List<InventoryItem> getInventory(User user) {
+        return inventoryRepository.findByUser(user);
     }
 
-    public InventoryItem adicionarItem(User user, String itemName, int quantity) {
+    public InventoryItem addItem(User user, String itemName, int quantity) {
         if (quantity <= 0) {
             throw new BadRequestException("A quantidade deve ser maior que zero");
         }
         
-        Item item = itemRepository.procurarPorNome(itemName)
+        Item item = itemRepository.findByName(itemName)
                 .orElseThrow(() -> new ResourceNotFoundException("Item com nome '" + itemName + "' não encontrado"));
                 
-        InventoryItem inventoryItem = inventoryRepository.procurarPorJogadorEItem(user, item)
+        InventoryItem inventoryItem = inventoryRepository.findByUserAndItem(user, item)
                 .orElse(new InventoryItem());
                 
         inventoryItem.setUser(user);
@@ -43,15 +43,15 @@ public class InventoryService {
         return inventoryRepository.save(inventoryItem);
     }
 
-    public void removerItem(User user, String itemName, int quantity) {
+    public void removeItem(User user, String itemName, int quantity) {
         if (quantity <= 0) {
             throw new BadRequestException("A quantidade a remover deve ser maior que zero");
         }
         
-        Item item = itemRepository.procurarPorNome(itemName)
+        Item item = itemRepository.findByName(itemName)
                 .orElseThrow(() -> new ResourceNotFoundException("Item com nome '" + itemName + "' não encontrado"));
                 
-        InventoryItem inventoryItem = inventoryRepository.procurarPorJogadorEItem(user, item)
+        InventoryItem inventoryItem = inventoryRepository.findByUserAndItem(user, item)
                 .orElseThrow(() -> new ResourceNotFoundException("Item '" + itemName + "' não está no inventário do usuário"));
                 
         int newQuantity = inventoryItem.getQuantity() - quantity;

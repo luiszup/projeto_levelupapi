@@ -19,37 +19,37 @@ public class UserService {
     @Autowired
     private XpRepository xpRepository;
 
-    public List<User> listarTodos() {
+    public List<User> findAll() {
         return userRepository.findAll();
     }
 
-    public Optional<User> buscarPorId(Long id) {
+    public Optional<User> findById(Long id) {
         return userRepository.findById(id);
     }
 
-    public User criar(User user) {
+    public User create(User user) {
         // Primeiro salvamos o usuário para obter o ID
         User savedUser = userRepository.save(user);
         
         // Depois criamos e associamos um registro Xp inicial
-        Xp xpInicial = new Xp();
-        xpInicial.setUser(savedUser);
-        xpInicial.setXpPoints(0);
-        xpInicial.setLevel(1);
-        xpRepository.save(xpInicial);
+        Xp initialXp = new Xp();
+        initialXp.setUser(savedUser);
+        initialXp.setXpPoints(0);
+        initialXp.setLevel(1);
+        xpRepository.save(initialXp);
         
         return savedUser;
     }
 
-    public User atualizar(Long id, User novoUser) {
+    public User update(Long id, User newUser) {
         return userRepository.findById(id).map(u -> {
-            u.setUsername(novoUser.getUsername());
-            u.setPassword(novoUser.getPassword());
+            u.setUsername(newUser.getUsername());
+            u.setPassword(newUser.getPassword());
             return userRepository.save(u);
         }).orElseThrow(() -> new ResourceNotFoundException("Usuário com ID " + id + " não encontrado"));
     }
 
-    public void deletar(Long id) {
+    public void delete(Long id) {
         if (!userRepository.existsById(id)) {
             throw new ResourceNotFoundException("Usuário com ID " + id + " não encontrado");
         }

@@ -1,4 +1,4 @@
-# Documentação do Projeto LevelUpAPI
+    # Documentação do Projeto LevelUpAPI
 
 ## Objetivo do Projeto
 O LevelUpAPI é uma API RESTful desenvolvida em Java com Spring Boot para gerenciar a progressão de jogadores em um RPG. O sistema permite cadastro de usuários, controle de experiência (XP), níveis, inventário de itens, escolha de recompensas ao subir de nível, e lógica de Zona de Segurança. O projeto é voltado para servir como backend de jogos, sistemas de gamificação ou plataformas de aprendizado baseadas em progressão.
