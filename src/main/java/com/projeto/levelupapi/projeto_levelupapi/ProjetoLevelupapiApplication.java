@@ -1,4 +1,4 @@
-package com.projeto.levelupapi;
+package com.projeto.levelupapi.projeto_levelupapi;
 
 import com.projeto.levelupapi.projeto_levelupapi.model.User;
 import com.projeto.levelupapi.projeto_levelupapi.model.Role;

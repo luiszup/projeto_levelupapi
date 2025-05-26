@@ -5,7 +5,6 @@ import com.projeto.levelupapi.projeto_levelupapi.infra.jwt.JwtAuthenticationFilt
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,14 +21,14 @@ import org.springframework.http.HttpMethod;
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
-
+    
     private final JwtAuthenticationEntryPoint unauthorizedHandler;
-
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
-
     private final UserDetailsService userDetailsService;
 
-    public SecurityConfig(JwtAuthenticationEntryPoint unauthorizedHandler, JwtAuthenticationFilter jwtAuthenticationFilter, UserDetailsService userDetailsService) {
+    public SecurityConfig(JwtAuthenticationEntryPoint unauthorizedHandler, 
+                         JwtAuthenticationFilter jwtAuthenticationFilter, 
+                         UserDetailsService userDetailsService) {
         this.unauthorizedHandler = unauthorizedHandler;
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.userDetailsService = userDetailsService;
@@ -51,15 +50,28 @@ public class SecurityConfig {
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(unauthorizedHandler))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        // Endpoints de autenticação
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
+                        
+                        // ✅ SWAGGER - TODOS OS ENDPOINTS LIBERADOS
+                        .requestMatchers("/v3/api-docs/**").permitAll()
+                        .requestMatchers("/api-docs/**").permitAll()
+                        .requestMatchers("/swagger-ui/**").permitAll()
+                        .requestMatchers("/swagger-ui.html").permitAll()
+                        
+                        // Endpoints públicos
                         .requestMatchers(HttpMethod.POST, "/api/users").permitAll()
+                        
+                        // H2 Console (apenas desenvolvimento)
+                        .requestMatchers("/h2-console/**").permitAll()
+                        
+                        // Endpoints protegidos
                         .requestMatchers("/api/users/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
-                );
+                )
+                .headers(headers -> headers.frameOptions().sameOrigin()); // Para H2 Console
 
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
     }
 
