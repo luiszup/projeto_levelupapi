@@ -1,9 +1,7 @@
 name: LevelUp API CI/CD
-
 on:
   push:
     branches: [ main, master, infra ]
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -47,7 +45,7 @@ jobs:
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USER }}
         key: ${{ secrets.EC2_SSH_KEY }}
-source: "levelup-jar/projeto_levelupapi-0.0.1-SNAPSHOT.jar"
+        source: "projeto_levelupapi-0.0.1-SNAPSHOT.jar"
         target: "/home/ec2-user/"
         
     - name: Deploy on EC2
