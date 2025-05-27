@@ -65,11 +65,14 @@ public class SecurityConfig {
                         // H2 Console (apenas desenvolvimento)
                         .requestMatchers("/h2-console/**").permitAll()
                         
-                        // Endpoints protegidos
-                        .requestMatchers("/api/users/**").hasRole("ADMIN")
+                        // Endpoints protegidos - usuários podem ver seus próprios dados
+                        .requestMatchers(HttpMethod.GET, "/api/users/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/users/**").authenticated() 
+                        .requestMatchers(HttpMethod.DELETE, "/api/users/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
-                .headers(headers -> headers.frameOptions().sameOrigin()); // Para H2 Console
+                .headers(headers -> headers
+                        .frameOptions(frameOptions -> frameOptions.sameOrigin())); // Para H2 Console
 
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
