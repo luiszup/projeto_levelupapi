@@ -1,12 +1,13 @@
-name: Test Build
+name: LevelUp API CI/CD
 
 on:
   push:
     branches: [ main, master, infra ]
 
 jobs:
-  test-build:
+  build:
     runs-on: ubuntu-latest
+    name: Build Application
     
     steps:
     - uses: actions/checkout@v3
@@ -23,5 +24,78 @@ jobs:
     - name: Build with Maven
       run: ./mvnw clean package -DskipTests
       
-    - name: Test if JAR was created
-      run: ls -la target/
+    - name: Upload JAR as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: levelup-jar
+        path: target/projeto_levelupapi-0.0.1-SNAPSHOT.jar
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    name: Deploy to EC2
+    
+    steps:
+    - name: Download JAR artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: levelup-jar
+        
+    - name: Copy JAR to EC2
+      uses: appleboy/scp-action@v0.1.4
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USER }}
+        key: ${{ secrets.EC2_SSH_KEY }}
+        source: "projeto_levelupapi-0.0.1-SNAPSHOT.jar"
+        target: "/home/ec2-user/"
+        
+    - name: Deploy on EC2
+      uses: appleboy/ssh-action@v0.1.5
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USER }}
+        key: ${{ secrets.EC2_SSH_KEY }}
+        script: |
+          echo "🚀 Starting deployment..."
+          
+          # Stop current application
+          echo "🛑 Stopping current application..."
+          PID=$(ps aux | grep 'projeto_levelupapi-0.0.1-SNAPSHOT.jar' | grep -v grep | awk '{print $2}')
+          if [ ! -z "$PID" ]; then
+            echo "Killing process PID: $PID"
+            kill -9 $PID
+            sleep 5
+          else
+            echo "No application running"
+          fi
+          
+          # Backup previous version
+          if [ -f "/home/ec2-user/projeto_levelupapi-0.0.1-SNAPSHOT.jar.current" ]; then
+            echo "📦 Backing up previous version..."
+            mv /home/ec2-user/projeto_levelupapi-0.0.1-SNAPSHOT.jar.current /home/ec2-user/projeto_levelupapi-0.0.1-SNAPSHOT.jar.backup
+          fi
+          
+          # Move new version to current
+          echo "📁 Installing new version..."
+          mv /home/ec2-user/projeto_levelupapi-0.0.1-SNAPSHOT.jar /home/ec2-user/projeto_levelupapi-0.0.1-SNAPSHOT.jar.current
+          
+          # Start new application
+          echo "▶️ Starting new application..."
+          cd /home/ec2-user
+          nohup java -jar -Dspring.profiles.active=prod projeto_levelupapi-0.0.1-SNAPSHOT.jar.current > app.log 2>&1 &
+          NEW_PID=$!
+          
+          echo "✅ Deployment completed!"
+          echo "🆔 New PID: $NEW_PID"
+          echo "🌐 URL: http://$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4):8080/swagger-ui.html"
+          
+          # Wait and verify
+          sleep 15
+          if ps -p $NEW_PID > /dev/null; then
+            echo "✅ Application is running successfully!"
+          else
+            echo "❌ Application failed to start!"
+            echo "📄 Last log lines:"
+            tail -10 app.log
+          fi
