@@ -25,7 +25,7 @@ jobs:
       run: ./mvnw clean package -DskipTests
       
     - name: Upload JAR as artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: levelup-jar
         path: target/projeto_levelupapi-0.0.1-SNAPSHOT.jar
@@ -37,7 +37,7 @@ jobs:
     
     steps:
     - name: Download JAR artifact
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: levelup-jar
         
