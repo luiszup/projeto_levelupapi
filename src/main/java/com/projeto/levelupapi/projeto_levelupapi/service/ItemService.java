@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Optional;
 import java.util.Arrays;
+import java.util.ArrayList;
 
 @Service
 public class ItemService {
@@ -53,15 +54,56 @@ public class ItemService {
     }
 
     public List<String> getAvailableItemsForLevel(int level) {
-        // Exemplo de desbloqueio por nível
-        if (level == 2) {
-            return Arrays.asList("Espada de Ferro", "Elmo de Couro");
-        } else if (level == 3) {
-            return Arrays.asList("Machado de Ferro", "Poção de Mana", "Armadura Reforçada");
-        } else if (level == 4) {
-            return Arrays.asList("Arco Longo", "Botas de Velocidade");
+        // Sistema de desbloqueio por nível - expandido
+        List<String> items = new ArrayList<>();
+        
+        // Itens básicos para iniciantes (nível 1)
+        if (level >= 1) {
+            items.addAll(Arrays.asList("Poção de Cura", "Pão Simples", "Adaga de Madeira"));
         }
-        // ...adicionar mais conforme necessidade...
-        return Arrays.asList();
+        if (level >= 2) {
+            items.addAll(Arrays.asList("Espada de Ferro", "Elmo de Couro"));
+        }
+        if (level >= 3) {
+            items.addAll(Arrays.asList("Machado de Ferro", "Poção de Mana", "Armadura Reforçada"));
+        }
+        if (level >= 4) {
+            items.addAll(Arrays.asList("Arco Longo", "Botas de Velocidade"));
+        }
+        if (level >= 5) {
+            items.addAll(Arrays.asList("Espada de Prata", "Escudo Mágico", "Anel de Poder"));
+        }
+        if (level >= 7) {
+            items.addAll(Arrays.asList("Armadura de Placas", "Poção Superior de Cura"));
+        }
+        if (level >= 10) {
+            items.addAll(Arrays.asList("Espada Encantada", "Capa da Invisibilidade", "Amuleto da Sorte"));
+        }
+        if (level >= 15) {
+            items.addAll(Arrays.asList("Machado dos Titãs", "Orbe de Fogo", "Botas Aladas"));
+        }
+        if (level >= 20) {
+            items.addAll(Arrays.asList("Espada Lendária", "Armadura do Dragão", "Coroa do Rei"));
+        }
+        if (level >= 25) {
+            items.addAll(Arrays.asList("Arma Divina", "Escudo Celestial", "Elixir da Vida Eterna"));
+        }
+        
+        // Itens épicos para níveis altos
+        if (level >= 50) {
+            items.addAll(Arrays.asList("Espada do Caos", "Armadura do Tempo", "Anel da Realidade"));
+        }
+        if (level >= 75) {
+            items.addAll(Arrays.asList("Lâmina do Infinito", "Manto das Estrelas"));
+        }
+        if (level >= 90) {
+            items.addAll(Arrays.asList("Artefato Primordial"));
+        }
+        if (level >= 100) {
+            items.addAll(Arrays.asList("Poder Absoluto", "Essência Divina"));
+        }
+        
+        logger.info("Available items for level {}: {} items", level, items.size());
+        return items;
     }
 }

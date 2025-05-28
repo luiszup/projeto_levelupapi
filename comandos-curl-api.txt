@@ -1,7 +1,5 @@
 ===============================================
-📋 COMANDOS InveRemover item do inventário
-curl -X POST "http://localhost:8080/api/inventory/1/remove" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDlzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo" -H "Content-Type: application/json" -d "{\"itemName\":\"Espada de Teste\",\"quantity\":1}"ário com paginação
-curl -X GET "http://localhost:8080/api/inventory/1/paged?page=0&size=5" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo"RL - LEVEL UP API
+📋 COMANDOS CURL - LEVEL UP API
 ===============================================
 🔑 Token JWT (não expira): eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo
 🌐 Base URL: http://localhost:8080
@@ -89,13 +87,17 @@ curl -X POST "http://localhost:8080/api/safezone/1/exit" -H "Authorization: Bear
 🚀 LEVEL UP (LevelUpController)
 ===============================================
 
-Listar itens disponíveis para o nível atual
-fazer, para liberar itens conforme o usuário sobe
+# Listar itens disponíveis para o nível atual do jogador
 curl -X GET "http://localhost:8080/api/levelup/1/available-items" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo"
 
-Escolher item de recompensa (precisa estar na zona segura)
-a penssar como fazer
+# Escolher item de recompensa (jogador DEVE estar na zona segura)
 curl -X POST "http://localhost:8080/api/levelup/1/choose-item" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo" -H "Content-Type: application/json" -d "{\"itemName\":\"Espada de Ferro\"}"
+
+# EXEMPLO: Escolher item de nível 3
+curl -X POST "http://localhost:8080/api/levelup/1/choose-item" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo" -H "Content-Type: application/json" -d "{\"itemName\":\"Machado de Ferro\"}"
+
+# EXEMPLO: Escolher item de nível 5
+curl -X POST "http://localhost:8080/api/levelup/1/choose-item" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo" -H "Content-Type: application/json" -d "{\"itemName\":\"Espada de Prata\"}"
 
 ===============================================
 🎯 MISSÕES (MissionController)

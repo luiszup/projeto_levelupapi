@@ -1,0 +1,231 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------< com.projeto.levelupapi:projeto_levelupapi >--------------
+[INFO] Building projeto_levelupapi 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.4.5:run (default-cli) > test-compile @ projeto_levelupapi >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ projeto_levelupapi ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ projeto_levelupapi ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ projeto_levelupapi ---
+[INFO] skip non existing resourceDirectory C:\git\projeto_levelupapi\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ projeto_levelupapi ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< spring-boot:3.4.5:run (default-cli) < test-compile @ projeto_levelupapi <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.4.5:run (default-cli) @ projeto_levelupapi ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.5)
+
+2025-05-28T16:01:51.680-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] c.p.l.p.ProjetoLevelupapiApplication     : Starting ProjetoLevelupapiApplication using Java 21.0.5 with PID 13184 (C:\git\projeto_levelupapi\target\classes started by User in C:\git\projeto_levelupapi)
+2025-05-28T16:01:51.686-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] c.p.l.p.ProjetoLevelupapiApplication     : No active profile set, falling back to 1 default profile: "default"
+2025-05-28T16:01:51.841-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-05-28T16:01:51.841-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-05-28T16:01:53.499-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-05-28T16:01:53.620-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 107 ms. Found 6 JPA repository interfaces.
+2025-05-28T16:01:54.680-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-05-28T16:01:54.702-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-05-28T16:01:54.703-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-05-28T16:01:54.794-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-05-28T16:01:54.796-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2952 ms
+2025-05-28T16:01:54.986-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-05-28T16:01:55.307-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:a8766045-7c52-4d1b-97ea-132534da0e02 user=SA
+2025-05-28T16:01:55.311-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-05-28T16:01:55.395-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-05-28T16:01:55.491-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.13.Final
+2025-05-28T16:01:55.556-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-05-28T16:01:56.002-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-05-28T16:01:56.125-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-05-28T16:01:57.913-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-05-28T16:01:58.018-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-05-28T16:01:58.551-03:00 DEBUG 13184 --- [projeto_levelupapi] [  restartedMain] c.p.l.p.i.jwt.JwtAuthenticationFilter    : Filter 'jwtAuthenticationFilter' configured for use
+2025-05-28T16:01:58.646-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-05-28T16:01:58.871-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-05-28T16:01:59.890-03:00  WARN 13184 --- [projeto_levelupapi] [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-05-28T16:02:00.887-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:a8766045-7c52-4d1b-97ea-132534da0e02'
+2025-05-28T16:02:01.058-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-05-28T16:02:01.111-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-05-28T16:02:01.124-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] c.p.l.p.ProjetoLevelupapiApplication     : Started ProjetoLevelupapiApplication in 10.245 seconds (process running for 11.039)
+2025-05-28T16:02:01.339-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] c.p.l.p.service.UserService              : Creating new user: admin
+2025-05-28T16:02:01.777-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] c.p.l.p.service.UserService              : User created successfully: admin (ID: 1)
+Usu�rio ADMIN padr�o criado: admin/admin
+Criando miss�es iniciais...
+7 miss�es iniciais criadas com sucesso!
+2025-05-28T16:03:08.494-03:00  INFO 13184 --- [projeto_levelupapi] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-05-28T16:03:08.495-03:00  INFO 13184 --- [projeto_levelupapi] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-05-28T16:03:08.496-03:00  INFO 13184 --- [projeto_levelupapi] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-05-28T16:03:08.533-03:00 DEBUG 13184 --- [projeto_levelupapi] [nio-8080-exec-1] c.p.l.p.i.jwt.JwtAuthenticationFilter    : Nenhum token JWT encontrado no header Authorization
+2025-05-28T16:03:08.673-03:00  INFO 13184 --- [projeto_levelupapi] [nio-8080-exec-1] c.p.l.p.service.UserService              : Creating new user: jogador_teste2
+2025-05-28T16:03:08.826-03:00  INFO 13184 --- [projeto_levelupapi] [nio-8080-exec-1] c.p.l.p.service.UserService              : User created successfully: jogador_teste2 (ID: 2)
+2025-05-28T16:03:19.230-03:00 DEBUG 13184 --- [projeto_levelupapi] [nio-8080-exec-2] c.p.l.p.i.jwt.JwtAuthenticationFilter    : Token JWT encontrado no header Authorization
+2025-05-28T16:03:19.303-03:00 DEBUG 13184 --- [projeto_levelupapi] [nio-8080-exec-2] c.p.l.p.i.jwt.JwtAuthenticationFilter    : Token válido para usuário: admin
+2025-05-28T16:03:19.310-03:00 DEBUG 13184 --- [projeto_levelupapi] [nio-8080-exec-2] c.p.l.p.i.jwt.JwtAuthenticationFilter    : Autenticação configurada para usuário: admin
+2025-05-28T16:04:58.275-03:00 DEBUG 13184 --- [projeto_levelupapi] [nio-8080-exec-3] c.p.l.p.i.jwt.JwtAuthenticationFilter    : Token JWT encontrado no header Authorization
+2025-05-28T16:04:58.279-03:00 DEBUG 13184 --- [projeto_levelupapi] [nio-8080-exec-3] c.p.l.p.i.jwt.JwtAuthenticationFilter    : Token válido para usuário: admin
+2025-05-28T16:04:58.282-03:00 DEBUG 13184 --- [projeto_levelupapi] [nio-8080-exec-3] c.p.l.p.i.jwt.JwtAuthenticationFilter    : Autenticação configurada para usuário: admin
+2025-05-28T16:04:58.305-03:00  WARN 13184 --- [projeto_levelupapi] [nio-8080-exec-3] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Method parameter 'userId': Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: "paged"]
+2025-05-28T16:05:44.158-03:00 DEBUG 13184 --- [projeto_levelupapi] [nio-8080-exec-4] c.p.l.p.i.jwt.JwtAuthenticationFilter    : Token JWT encontrado no header Authorization
+2025-05-28T16:05:44.164-03:00 DEBUG 13184 --- [projeto_levelupapi] [nio-8080-exec-4] c.p.l.p.i.jwt.JwtAuthenticationFilter    : Token válido para usuário: admin
+2025-05-28T16:05:44.168-03:00 DEBUG 13184 --- [projeto_levelupapi] [nio-8080-exec-4] c.p.l.p.i.jwt.JwtAuthenticationFilter    : Autenticação configurada para usuário: admin
+2025-05-28T16:05:44.184-03:00  INFO 13184 --- [projeto_levelupapi] [nio-8080-exec-4] c.p.l.p.service.ItemService              : Available items for level 1: 0 items
+2025-05-28T16:07:05.538-03:00 DEBUG 13184 --- [projeto_levelupapi] [nio-8080-exec-5] c.p.l.p.i.jwt.JwtAuthenticationFilter    : Token JWT encontrado no header Authorization
+2025-05-28T16:07:05.543-03:00 DEBUG 13184 --- [projeto_levelupapi] [nio-8080-exec-5] c.p.l.p.i.jwt.JwtAuthenticationFilter    : Token válido para usuário: admin
+2025-05-28T16:07:05.547-03:00 DEBUG 13184 --- [projeto_levelupapi] [nio-8080-exec-5] c.p.l.p.i.jwt.JwtAuthenticationFilter    : Autenticação configurada para usuário: admin
+2025-05-28T16:07:05.554-03:00  INFO 13184 --- [projeto_levelupapi] [nio-8080-exec-5] c.p.l.p.service.ItemService              : Available items for level 1: 0 items
+2025-05-28T16:09:29.676-03:00 DEBUG 13184 --- [projeto_levelupapi] [nio-8080-exec-6] c.p.l.p.i.jwt.JwtAuthenticationFilter    : Token JWT encontrado no header Authorization
+2025-05-28T16:09:29.681-03:00 DEBUG 13184 --- [projeto_levelupapi] [nio-8080-exec-6] c.p.l.p.i.jwt.JwtAuthenticationFilter    : Token válido para usuário: admin
+2025-05-28T16:09:29.684-03:00 DEBUG 13184 --- [projeto_levelupapi] [nio-8080-exec-6] c.p.l.p.i.jwt.JwtAuthenticationFilter    : Autenticação configurada para usuário: admin
+2025-05-28T16:09:29.686-03:00  INFO 13184 --- [projeto_levelupapi] [nio-8080-exec-6] c.p.l.p.service.ItemService              : Creating item: Espada de Teste
+2025-05-28T16:09:29.692-03:00  INFO 13184 --- [projeto_levelupapi] [nio-8080-exec-6] c.p.l.p.service.ItemService              : Item created successfully: Espada de Teste (ID: 5)
+2025-05-28T16:10:21.935-03:00 DEBUG 13184 --- [projeto_levelupapi] [nio-8080-exec-8] c.p.l.p.i.jwt.JwtAuthenticationFilter    : Token JWT encontrado no header Authorization
+2025-05-28T16:10:21.940-03:00 DEBUG 13184 --- [projeto_levelupapi] [nio-8080-exec-8] c.p.l.p.i.jwt.JwtAuthenticationFilter    : Token válido para usuário: admin
+2025-05-28T16:10:21.943-03:00 DEBUG 13184 --- [projeto_levelupapi] [nio-8080-exec-8] c.p.l.p.i.jwt.JwtAuthenticationFilter    : Autenticação configurada para usuário: admin
+2025-05-28T16:10:21.946-03:00  INFO 13184 --- [projeto_levelupapi] [nio-8080-exec-8] c.p.l.p.service.ItemService              : Available items for level 1: 0 items
+2025-05-28T16:12:05.951-03:00  INFO 13184 --- [projeto_levelupapi] [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-05-28T16:12:05.970-03:00  INFO 13184 --- [projeto_levelupapi] [       Thread-5] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-05-28T16:12:05.994-03:00  INFO 13184 --- [projeto_levelupapi] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-05-28T16:12:06.017-03:00  INFO 13184 --- [projeto_levelupapi] [       Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-05-28T16:12:06.056-03:00  WARN 13184 --- [projeto_levelupapi] [       Thread-5] o.s.b.f.support.DisposableBeanAdapter    : Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-232]
+2025-05-28T16:12:06.058-03:00  INFO 13184 --- [projeto_levelupapi] [       Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-05-28T16:12:06.062-03:00  INFO 13184 --- [projeto_levelupapi] [       Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.5)
+
+2025-05-28T16:12:06.346-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] c.p.l.p.ProjetoLevelupapiApplication     : Starting ProjetoLevelupapiApplication using Java 21.0.5 with PID 13184 (C:\git\projeto_levelupapi\target\classes started by User in C:\git\projeto_levelupapi)
+2025-05-28T16:12:06.348-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] c.p.l.p.ProjetoLevelupapiApplication     : No active profile set, falling back to 1 default profile: "default"
+2025-05-28T16:12:07.410-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-05-28T16:12:07.495-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 82 ms. Found 6 JPA repository interfaces.
+2025-05-28T16:12:08.306-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-05-28T16:12:08.310-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-05-28T16:12:08.312-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-05-28T16:12:08.377-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-05-28T16:12:08.377-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2024 ms
+2025-05-28T16:12:08.521-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2025-05-28T16:12:08.527-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection conn10: url=jdbc:h2:mem:b40d28c8-7913-4a80-9b14-379261609e07 user=SA
+2025-05-28T16:12:08.528-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2025-05-28T16:12:08.534-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-05-28T16:12:08.541-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-05-28T16:12:08.570-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-05-28T16:12:08.574-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-2)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-05-28T16:12:08.969-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-05-28T16:12:09.023-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-05-28T16:12:09.197-03:00 DEBUG 13184 --- [projeto_levelupapi] [  restartedMain] c.p.l.p.i.jwt.JwtAuthenticationFilter    : Filter 'jwtAuthenticationFilter' configured for use
+2025-05-28T16:12:09.260-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-05-28T16:12:09.694-03:00  WARN 13184 --- [projeto_levelupapi] [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-05-28T16:12:10.345-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:b40d28c8-7913-4a80-9b14-379261609e07'
+2025-05-28T16:12:10.488-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-05-28T16:12:10.515-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-05-28T16:12:10.523-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] c.p.l.p.ProjetoLevelupapiApplication     : Started ProjetoLevelupapiApplication in 4.311 seconds (process running for 620.437)
+2025-05-28T16:12:10.600-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] c.p.l.p.service.UserService              : Creating new user: admin
+2025-05-28T16:12:10.841-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] c.p.l.p.service.UserService              : User created successfully: admin (ID: 1)
+Usu�rio ADMIN padr�o criado: admin/admin
+Criando miss�es iniciais...
+7 miss�es iniciais criadas com sucesso!
+2025-05-28T16:12:10.869-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-05-28T16:12:21.360-03:00  INFO 13184 --- [projeto_levelupapi] [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-05-28T16:12:21.364-03:00  INFO 13184 --- [projeto_levelupapi] [       Thread-7] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-05-28T16:12:21.373-03:00  INFO 13184 --- [projeto_levelupapi] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-05-28T16:12:21.379-03:00  INFO 13184 --- [projeto_levelupapi] [       Thread-7] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-05-28T16:12:21.385-03:00  WARN 13184 --- [projeto_levelupapi] [       Thread-7] o.s.b.f.support.DisposableBeanAdapter    : Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-232]
+2025-05-28T16:12:21.386-03:00  INFO 13184 --- [projeto_levelupapi] [       Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2025-05-28T16:12:21.387-03:00  INFO 13184 --- [projeto_levelupapi] [       Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.5)
+
+2025-05-28T16:12:21.580-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] c.p.l.p.ProjetoLevelupapiApplication     : Starting ProjetoLevelupapiApplication using Java 21.0.5 with PID 13184 (C:\git\projeto_levelupapi\target\classes started by User in C:\git\projeto_levelupapi)
+2025-05-28T16:12:21.581-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] c.p.l.p.ProjetoLevelupapiApplication     : No active profile set, falling back to 1 default profile: "default"
+2025-05-28T16:12:22.231-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-05-28T16:12:22.264-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 31 ms. Found 6 JPA repository interfaces.
+2025-05-28T16:12:22.587-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-05-28T16:12:22.587-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-05-28T16:12:22.587-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-05-28T16:12:22.697-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-05-28T16:12:22.697-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1111 ms
+2025-05-28T16:12:22.841-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2025-05-28T16:12:22.844-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection conn20: url=jdbc:h2:mem:3876729b-f58c-43a8-a410-ac217f0f9a3b user=SA
+2025-05-28T16:12:22.844-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2025-05-28T16:12:22.846-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-05-28T16:12:22.853-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-05-28T16:12:22.875-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-05-28T16:12:22.877-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-3)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-05-28T16:12:23.322-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-05-28T16:12:23.378-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-05-28T16:12:23.582-03:00 DEBUG 13184 --- [projeto_levelupapi] [  restartedMain] c.p.l.p.i.jwt.JwtAuthenticationFilter    : Filter 'jwtAuthenticationFilter' configured for use
+2025-05-28T16:12:23.626-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-05-28T16:12:23.946-03:00  WARN 13184 --- [projeto_levelupapi] [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-05-28T16:12:24.409-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:3876729b-f58c-43a8-a410-ac217f0f9a3b'
+2025-05-28T16:12:24.475-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-05-28T16:12:24.490-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-05-28T16:12:24.494-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] c.p.l.p.ProjetoLevelupapiApplication     : Started ProjetoLevelupapiApplication in 2.986 seconds (process running for 634.409)
+Criando miss�es iniciais...
+7 miss�es iniciais criadas com sucesso!
+2025-05-28T16:12:24.562-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] c.p.l.p.service.UserService              : Creating new user: admin
+2025-05-28T16:12:24.728-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] c.p.l.p.service.UserService              : User created successfully: admin (ID: 1)
+Usu�rio ADMIN padr�o criado: admin/admin
+2025-05-28T16:12:24.730-03:00  INFO 13184 --- [projeto_levelupapi] [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-05-28T16:12:43.999-03:00  INFO 13184 --- [projeto_levelupapi] [ionShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-05-28T16:12:44.003-03:00  INFO 13184 --- [projeto_levelupapi] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-05-28T16:12:44.007-03:00  INFO 13184 --- [projeto_levelupapi] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-05-28T16:12:44.009-03:00  WARN 13184 --- [projeto_levelupapi] [ionShutdownHook] o.s.b.f.support.DisposableBeanAdapter    : Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-232]
+2025-05-28T16:12:44.011-03:00  INFO 13184 --- [projeto_levelupapi] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2025-05-28T16:12:44.013-03:00  INFO 13184 --- [projeto_levelupapi] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  10:59 min
+[INFO] Finished at: 2025-05-28T16:12:44-03:00
+[INFO] ------------------------------------------------------------------------
+Deseja finalizar o arquivo em lotes (S/N)? 
