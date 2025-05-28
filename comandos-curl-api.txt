@@ -1,0 +1,172 @@
+===============================================
+📋 COMANDOS InveRemover item do inventário
+curl -X POST "http://localhost:8080/api/inventory/1/remove" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDlzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo" -H "Content-Type: application/json" -d "{\"itemName\":\"Espada de Teste\",\"quantity\":1}"ário com paginação
+curl -X GET "http://localhost:8080/api/inventory/1/paged?page=0&size=5" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo"RL - LEVEL UP API
+===============================================
+🔑 Token JWT (não expira): eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo
+🌐 Base URL: http://localhost:8080
+===============================================
+
+👥 USUÁRIOS (UserController)
+===============================================
+
+Cadastrar usuário
+curl -X POST "http://localhost:8080/api/users" -H "Content-Type: application/json" -d "{\"username\":\"jogador_teste2\",\"password\":\"senha123\"}"
+
+Obter dados dos usuários
+curl -X GET "http://localhost:8080/api/users" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo"
+
+Buscar usuário por ID
+curl -X GET "http://localhost:8080/api/users/1" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo"
+
+Listar usuários com paginação
+curl -X GET "http://localhost:8080/api/users/paged?page=0&size=5" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo"
+
+Atualizar usuário
+curl -X PUT "http://localhost:8080/api/users/2" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo" -H "Content-Type: application/json" -d "{\"username\":\"admin_atualizado\",\"password\":\"nova_senha\"}"
+
+deletar usuário.
+curl -X DELETE "http://localhost:8080/api/users/2" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo"
+
+
+===============================================
+⭐ EXPERIÊNCIA (XpController)
+===============================================
+
+Consultar XP atual do usuário
+curl -X GET "http://localhost:8080/api/xp/1" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo"
+
+Adicionar XP ao usuário
+curl -X POST "http://localhost:8080/api/xp/1/add?xpGanho=150" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo"
+
+Resetar XP do usuário
+curl -X POST "http://localhost:8080/api/xp/1/reset" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo"
+
+===============================================
+⚔️ ITENS (ItemController)
+===============================================
+
+Criar novo item
+curl -X POST "http://localhost:8080/items" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo" -H "Content-Type: application/json" -d "{\"name\":\"Espada de Teste\",\"description\":\"Uma espada criada para testes\"}"
+
+Listar todos os itens
+curl -X GET "http://localhost:8080/items" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo"
+
+Listar itens com paginação
+curl -X GET "http://localhost:8080/items/paged?page=0&size=3" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo"
+
+===============================================
+🎒 INVENTÁRIO (InventoryController)
+===============================================
+
+Visualizar inventário do usuário
+curl -X GET "http://localhost:8080/api/inventory/1" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo"
+
+Adicionar item ao inventário
+curl -X POST "http://localhost:8080/api/inventory/1/add" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo" -H "Content-Type: application/json" -d "{\"itemName\":\"Espada de Teste\",\"quantity\":1}"
+
+Inventário com paginação
+a corrijir
+curl -X GET "http://localhost:8080/api/inventory/paged?userId=1&page=0&size=5" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo"
+
+Remover item do inventário
+curl -X POST "http://localhost:8080/api/inventory/1/remove" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo" -H "Content-Type: application/json" -d "{\"itemName\":\"Espada de Teste\",\"quantity\":1}"
+
+===============================================
+🛡️ ZONA DE SEGURANÇA (SafeZoneController)
+===============================================
+
+Verificar status da zona de segurança
+curl -X GET "http://localhost:8080/api/safezone/1/status" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo"
+
+Entrar na zona de segurança
+curl -X POST "http://localhost:8080/api/safezone/1/enter" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo"
+
+Sair da zona de segurança
+curl -X POST "http://localhost:8080/api/safezone/1/exit" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo"
+
+===============================================
+🚀 LEVEL UP (LevelUpController)
+===============================================
+
+Listar itens disponíveis para o nível atual
+fazer, para liberar itens conforme o usuário sobe
+curl -X GET "http://localhost:8080/api/levelup/1/available-items" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo"
+
+Escolher item de recompensa (precisa estar na zona segura)
+a penssar como fazer
+curl -X POST "http://localhost:8080/api/levelup/1/choose-item" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo" -H "Content-Type: application/json" -d "{\"itemName\":\"Espada de Ferro\"}"
+
+===============================================
+🎯 MISSÕES (MissionController)
+===============================================
+
+Listar todas as missões (admin)
+curl -X GET "http://localhost:8080/api/missions" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo"
+
+Listar missões disponíveis para usuário
+curl -X GET "http://localhost:8080/api/missions/available/1" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo"
+
+Completar primeira missão
+curl -X POST "http://localhost:8080/api/missions/1/complete/1" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo"
+
+Verificar histórico de missões
+curl -X GET "http://localhost:8080/api/missions/history/1" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo"
+
+Criar nova missão (admin)
+curl -X POST "http://localhost:8080/api/missions" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo" -H "Content-Type: application/json" -d "{\"name\":\"Missão de Teste\",\"description\":\"Uma missão criada durante os testes\",\"xpReward\":25,\"requiredLevel\":1,\"isRepeatable\":true}"
+
+Completar missão repetível novamente
+curl -X POST "http://localhost:8080/api/missions/2/complete/1" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo"
+
+Reset das missões (para testes)
+curl -X POST "http://localhost:8080/api/missions/reset" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo"
+
+===============================================
+🧪 TESTES NEGATIVOS (Validações)
+===============================================
+
+Tentar acessar endpoint sem token (deve dar erro 401)
+curl -X GET "http://localhost:8080/api/users/1"
+
+Tentar login com credenciais inválidas
+curl -X POST "http://localhost:8080/api/auth/login" -H "Content-Type: application/json" -d "{\"username\":\"usuario_inexistente\",\"password\":\"senha_errada\"}"
+
+Tentar buscar usuário inexistente (ID 999)
+curl -X GET "http://localhost:8080/api/users/999" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo"
+
+Tentar completar missão inexistente (ID 999)
+curl -X POST "http://localhost:8080/api/missions/999/complete/1" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo"
+
+Tentar adicionar XP com dados inválidos
+curl -X POST "http://localhost:8080/api/xp/1/add" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo" -H "Content-Type: application/json" -d "{\"xp\":-50}"
+
+===============================================
+📋 INSTRUÇÕES DE USO
+===============================================
+
+1. 🚀 Certifique-se que a aplicação está rodando em localhost:8080
+2. 🔑 Token JWT já incluído nos comandos (não expira)
+3. 📝 Copie e cole os comandos diretamente no CMD
+4. 🔧 Substitua os IDs conforme necessário (usuário, missão, etc.)
+5. 📊 Use os comandos de consulta para verificar os resultados
+
+===============================================
+📞 EXEMPLO DE USO COMPLETO
+===============================================
+
+1. Criar usuário:
+curl -X POST "http://localhost:8080/api/users" -H "Content-Type: application/json" -d "{\"username\":\"meu_usuario\",\"password\":\"minha_senha\"}"
+
+2. Ver XP atual:
+curl -X GET "http://localhost:8080/api/xp/1" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo"
+
+3. Completar missão:
+curl -X POST "http://localhost:8080/api/missions/1/complete/1" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo"
+
+4. Ver XP após missão:
+curl -X GET "http://localhost:8080/api/xp/1" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDUyMzIxLCJleHAiOjE3NDkzMTYzMjF9.Gpge7gZvGcOLLAALh8JbG0BZWYSr7YiTrEYVeDaASWo"
+
+===============================================
+🎉 ARQUIVO CRIADO COM SUCESSO!
+===============================================
