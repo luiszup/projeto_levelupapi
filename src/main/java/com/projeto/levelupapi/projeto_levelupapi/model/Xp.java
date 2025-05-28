@@ -29,9 +29,11 @@ public class Xp {
 
     // Verifica se o jogador subiu de nível
     private void checkLevelUp() {
-        while (this.xpPoints >= xpRequiredForLevelUp()) {
+        int requiredXp = xpRequiredForLevelUp();
+        while (this.xpPoints >= requiredXp) {
             this.level++;
-            this.xpPoints -= xpRequiredForLevelUp();  // Reseta a XP extra após subir de nível
+            this.xpPoints -= requiredXp;  // Subtrai apenas o XP necessário para o nível atual
+            requiredXp = xpRequiredForLevelUp(); // Recalcula para o próximo nível
         }
     }
 

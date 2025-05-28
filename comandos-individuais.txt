@@ -1,0 +1,115 @@
+# 🎮 Comandos Individuais para CMD - Sistema de Missões
+
+## Token para usar nos comandos:
+```
+set TOKEN=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDQyNDA2LCJleHAiOjE3NDkzMDY0MDZ9.Zou6Z8jA0fS9Q3AGQLg-jAg9z43bz8kUp_HcdEIQ6b8
+```
+
+## 1. Verificar XP inicial do usuário admin (ID 1)
+```cmd
+curl -X GET "http://localhost:8080/api/xp/1" -H "Authorization: Bearer %TOKEN%"
+```
+**Resultado esperado:** XP = 0, Level = 1
+
+## 2. Listar todas as missões (admin)
+```cmd
+curl -X GET "http://localhost:8080/api/missions" -H "Authorization: Bearer %TOKEN%"
+```
+**Resultado esperado:** 7 missões criadas no startup
+
+## 3. Listar missões disponíveis para usuário 1
+```cmd
+curl -X GET "http://localhost:8080/api/missions/available/1" -H "Authorization: Bearer %TOKEN%"
+```
+**Resultado esperado:** 3 missões de nível 1
+
+## 4. Completar primeira missão (Primeira Exploração - 20 XP)
+```cmd
+curl -X POST "http://localhost:8080/api/missions/1/complete/1" -H "Authorization: Bearer %TOKEN%"
+```
+**Resultado esperado:** Mensagem de sucesso + 20 XP ganhos
+
+## 5. Verificar XP após primeira missão
+```cmd
+curl -X GET "http://localhost:8080/api/xp/1" -H "Authorization: Bearer %TOKEN%"
+```
+**Resultado esperado:** XP = 20, Level = 1
+
+## 6. Completar segunda missão (Coletando Recursos - 15 XP, repetível)
+```cmd
+curl -X POST "http://localhost:8080/api/missions/2/complete/1" -H "Authorization: Bearer %TOKEN%"
+```
+**Resultado esperado:** Mensagem de sucesso + 15 XP ganhos
+
+## 7. Completar terceira missão (Conhecendo o Sistema - 10 XP)
+```cmd
+curl -X POST "http://localhost:8080/api/missions/3/complete/1" -H "Authorization: Bearer %TOKEN%"
+```
+**Resultado esperado:** Mensagem de sucesso + 10 XP ganhos
+
+## 8. Verificar XP após 3 missões (total: 45 XP)
+```cmd
+curl -X GET "http://localhost:8080/api/xp/1" -H "Authorization: Bearer %TOKEN%"
+```
+**Resultado esperado:** XP = 45, Level = 1
+
+## 9. Tentar completar primeira missão novamente (deve dar erro)
+```cmd
+curl -X POST "http://localhost:8080/api/missions/1/complete/1" -H "Authorization: Bearer %TOKEN%"
+```
+**Resultado esperado:** Erro 400 - "Você já completou esta missão"
+
+## 10. Verificar histórico de missões
+```cmd
+curl -X GET "http://localhost:8080/api/missions/history/1" -H "Authorization: Bearer %TOKEN%"
+```
+**Resultado esperado:** Lista com 3 missões completadas
+
+## 11. Completar missão repetível novamente (Coletando Recursos)
+```cmd
+curl -X POST "http://localhost:8080/api/missions/2/complete/1" -H "Authorization: Bearer %TOKEN%"
+```
+**Resultado esperado:** Sucesso + mais 15 XP (total 60 XP)
+
+## 12. Verificar XP final
+```cmd
+curl -X GET "http://localhost:8080/api/xp/1" -H "Authorization: Bearer %TOKEN%"
+```
+**Resultado esperado:** XP = 60, Level = 1
+
+## 13. Tentar completar missão de nível 2 (deve dar erro de nível insuficiente)
+```cmd
+curl -X POST "http://localhost:8080/api/missions/4/complete/1" -H "Authorization: Bearer %TOKEN%"
+```
+**Resultado esperado:** Erro 400 - "Nível insuficiente para esta missão"
+
+## 14. Criar nova missão (admin)
+```cmd
+curl -X POST "http://localhost:8080/api/missions" -H "Content-Type: application/json" -H "Authorization: Bearer %TOKEN%" -d "{\"name\":\"Missao de Teste\",\"description\":\"Uma missao criada para teste\",\"xpReward\":100,\"requiredLevel\":1,\"isActive\":true,\"isRepeatable\":true}"
+```
+**Resultado esperado:** Nova missão criada com ID 8
+
+---
+
+## 📋 Como usar:
+
+1. **Execute primeiro:**
+   ```cmd
+   set TOKEN=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ4NDQyNDA2LCJleHAiOjE3NDkzMDY0MDZ9.Zou6Z8jA0fS9Q3AGQLg-jAg9z43bz8kUp_HcdEIQ6b8
+   ```
+
+2. **Depois copie e cole os comandos um por um**
+
+3. **Ou execute o script completo:**
+   ```cmd
+   test-completo.bat
+   ```
+
+## 🎯 Validações que serão testadas:
+- ✅ Usuário pode completar missões do seu nível
+- ✅ XP é concedido automaticamente
+- ✅ Missões não-repetíveis só podem ser completadas uma vez
+- ✅ Missões repetíveis podem ser feitas múltiplas vezes
+- ✅ Erro ao tentar completar missão de nível superior
+- ✅ Histórico de missões é mantido
+- ✅ Admin pode criar novas missões
