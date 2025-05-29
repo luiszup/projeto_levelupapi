@@ -21,6 +21,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 @RestController
@@ -46,14 +47,19 @@ public class UserController {
         @ApiResponse(responseCode = "401", description = "Token de autenticação inválido ou ausente")
     })
     public List<UserResponseDto> getAllUsers() {
-        return userService.listAll(Pageable.unpaged()).stream().map(user -> {
+        List<User> users = userService.listAll(); // Usar o método sem paginação
+        List<UserResponseDto> result = new ArrayList<>();
+        
+        for (User user : users) {
             UserResponseDto dto = new UserResponseDto();
             dto.setId(user.getId());
             dto.setUsername(user.getUsername());
             dto.setLevel(user.getXpData() != null ? user.getXpData().getLevel() : 1);
             dto.setXp(user.getXpData() != null ? user.getXpData().getXpPoints() : 0);
-            return dto;
-        }).collect(Collectors.toList());
+            result.add(dto);
+        }
+        
+        return result;
     }
 
     @GetMapping("/paged")

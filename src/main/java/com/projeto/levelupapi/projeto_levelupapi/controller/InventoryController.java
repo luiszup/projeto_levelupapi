@@ -60,7 +60,7 @@ public class InventoryController {
         return ResponseEntity.ok(inventory);
     }
 
-    @GetMapping("/paged")
+    @GetMapping("/{userId}/paged")
     @Operation(
         summary = "Visualizar inventário com paginação",
         description = "Retorna o inventário do jogador de forma paginada para melhor performance"

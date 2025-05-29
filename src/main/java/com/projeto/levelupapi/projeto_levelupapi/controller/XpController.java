@@ -56,4 +56,22 @@ public class XpController {
         @PathVariable Long userId) {
         return ResponseEntity.ok(xpService.obterXp(userId).getXpPoints());
     }
+
+    @PostMapping("/{userId}/reset")
+    @Operation(
+        summary = "Resetar XP do jogador (Admin/Teste)",
+        description = "Reseta o XP do jogador para 0 e nível para 1. Útil para testes."
+    )
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "XP resetado com sucesso"),
+        @ApiResponse(responseCode = "404", description = "Jogador não encontrado"),
+        @ApiResponse(responseCode = "401", description = "Token de autenticação inválido ou ausente"),
+        @ApiResponse(responseCode = "403", description = "Acesso negado - apenas administradores")
+    })
+    public ResponseEntity<String> resetXp(
+        @Parameter(description = "ID único do jogador", required = true)
+        @PathVariable Long userId) {
+        String mensagem = xpService.resetXp(userId);
+        return ResponseEntity.ok(mensagem);
+    }
 }

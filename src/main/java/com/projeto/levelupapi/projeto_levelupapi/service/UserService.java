@@ -8,8 +8,10 @@ import com.projeto.levelupapi.projeto_levelupapi.model.Item;
 import com.projeto.levelupapi.projeto_levelupapi.repository.UserRepository;
 import com.projeto.levelupapi.projeto_levelupapi.repository.XpRepository;
 import com.projeto.levelupapi.projeto_levelupapi.repository.ItemRepository;
+import com.projeto.levelupapi.projeto_levelupapi.repository.InventoryItemRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -25,14 +27,16 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final InventoryService inventoryService;
     private final ItemRepository itemRepository;
+    private final InventoryItemRepository inventoryRepository;
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
-    public UserService(UserRepository userRepository, XpRepository xpRepository, PasswordEncoder passwordEncoder, InventoryService inventoryService, ItemRepository itemRepository) {
+    public UserService(UserRepository userRepository, XpRepository xpRepository, PasswordEncoder passwordEncoder, InventoryService inventoryService, ItemRepository itemRepository, InventoryItemRepository inventoryRepository) {
         this.userRepository = userRepository;
         this.xpRepository = xpRepository;
         this.passwordEncoder = passwordEncoder;
         this.inventoryService = inventoryService;
         this.itemRepository = itemRepository;
+        this.inventoryRepository = inventoryRepository;
     }
 
     public List<User> listAll() {
@@ -92,13 +96,31 @@ public class UserService {
         }).orElseThrow(() -> new ResourceNotFoundException("User with ID " + id + " not found"));
     }
 
+    @Transactional
     public void delete(Long id) {
         logger.warn("Trying to delete user with ID: {}", id);
-        if (!userRepository.existsById(id)) {
-            logger.error("User with ID {} not found for deletion", id);
-            throw new ResourceNotFoundException("User with ID " + id + " not found");
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User with ID " + id + " not found"));
+        
+        // Limpar dados relacionados antes de deletar o usuário
+        logger.info("Cleaning related data for user: {}", user.getUsername());
+        
+        // 1. Limpar inventário
+        List<InventoryItem> inventoryItems = inventoryRepository.findByUser(user);
+        if (!inventoryItems.isEmpty()) {
+            logger.info("Deleting {} inventory items for user {}", inventoryItems.size(), user.getUsername());
+            inventoryRepository.deleteAll(inventoryItems);
         }
-        userRepository.deleteById(id);
-        logger.info("User deleted successfully: {}", id);
+        
+        // 2. Limpar dados de XP
+        Optional<Xp> xpData = xpRepository.findByUserId(user.getId());
+        if (xpData.isPresent()) {
+            logger.info("Deleting XP data for user {}", user.getUsername());
+            xpRepository.delete(xpData.get());
+        }
+        
+        // 3. Finalmente deletar o usuário
+        userRepository.delete(user);
+        logger.info("User deleted successfully: {} (ID: {})", user.getUsername(), id);
     }
 }

@@ -82,4 +82,19 @@ public class XpService {
         logger.info("Listing all XP records with pagination: page={}, size={}", pageable.getPageNumber(), pageable.getPageSize());
         return xpRepository.findAll(pageable);
     }
+    
+    // Reseta o XP do usuário para 0 e nível para 1
+    @Transactional
+    public String resetXp(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
+        
+        Xp xp = getOrCreateXp(user);
+        xp.setXpPoints(0);
+        xp.setLevel(1);
+        xpRepository.save(xp);
+        
+        logger.info("XP resetado para usuário {}: XP=0, Level=1", user.getUsername());
+        return "XP resetado com sucesso. XP atual: 0, Nível atual: 1";
+    }
 }
