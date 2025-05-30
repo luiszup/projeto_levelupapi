@@ -26,6 +26,10 @@ public class User {
     @Column(nullable = false)
     private Role role = Role.USER;
     
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "xp_id")
     private Xp xpData;
+
+    @Column(nullable = false)
+    private boolean inSafeZone = true;
 }

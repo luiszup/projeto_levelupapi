@@ -10,14 +10,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
+    private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
     private final JwtTokenProvider tokenProvider;
-
     private final UserDetailsService userDetailsService;
 
     public JwtAuthenticationFilter(JwtTokenProvider tokenProvider, UserDetailsService userDetailsService) {
@@ -30,13 +32,22 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         throws ServletException, IOException {
         String jwt = getJwtFromRequest(request);
 
-        if (jwt != null && tokenProvider.validateToken(jwt)) {
-            String username = tokenProvider.getUsernameFromJwt(jwt);
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        if (jwt != null) {
+            logger.debug("Token JWT encontrado no header Authorization");
+            if (tokenProvider.validateToken(jwt)) {
+                String username = tokenProvider.getUsernameFromJwt(jwt);
+                logger.debug("Token válido para usuário: {}", username);
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-            UsernamePasswordAuthenticationToken authentication =
-                    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+                UsernamePasswordAuthenticationToken authentication =
+                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                logger.debug("Autenticação configurada para usuário: {}", username);
+            } else {
+                logger.warn("Token JWT inválido recebido");
+            }
+        } else {
+            logger.debug("Nenhum token JWT encontrado no header Authorization");
         }
 
         filterChain.doFilter(request, response);
