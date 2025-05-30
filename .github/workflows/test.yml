@@ -1,0 +1,187 @@
+name: Tests and Coverage
+on:
+  push:
+    branches: [ main, master, test ]
+  pull_request:
+    branches: [ main, master, test ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Run Tests and Coverage
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        
+    - name: Cache Maven dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+        
+    - name: Grant execute permission for mvnw
+      run: chmod +x mvnw
+        
+    - name: Run tests and generate coverage report
+      run: ./mvnw clean verify
+      
+    - name: Display coverage in logs
+      run: |
+        JACOCO_REPORT="target/site/jacoco/jacoco.xml"
+        if [ -f "$JACOCO_REPORT" ]; then
+            echo "📊 === RELATÓRIO DE COBERTURA ==="
+            
+            # Extrair cobertura usando grep mais robusto
+            COVERED=$(grep '<counter type="INSTRUCTION"' "$JACOCO_REPORT" | grep -o 'covered="[0-9]*"' | grep -o '[0-9]*')
+            MISSED=$(grep '<counter type="INSTRUCTION"' "$JACOCO_REPORT" | grep -o 'missed="[0-9]*"' | grep -o '[0-9]*')
+            
+            if [ ! -z "$COVERED" ] && [ ! -z "$MISSED" ]; then
+                TOTAL=$((COVERED + MISSED))
+                COVERAGE=$((COVERED * 100 / TOTAL))
+                
+                echo "✅ Instruções cobertas: $COVERED"
+                echo "❌ Instruções não cobertas: $MISSED"
+                echo "📊 Total de instruções: $TOTAL"
+                echo "🏆 Cobertura total: $COVERAGE%"
+                echo "🌿 Branch atual: ${{ github.ref_name }}"
+                echo "================================"
+                
+                # Define o mínimo de cobertura
+                MIN_COVERAGE=70
+                
+                if [ $COVERAGE -lt $MIN_COVERAGE ]; then
+                    echo "❌ ERRO: Cobertura de testes ($COVERAGE%) abaixo do mínimo ($MIN_COVERAGE%)"
+                    echo "💡 Adicione mais testes para melhorar a cobertura"
+                    echo "📝 Sugestões:"
+                    echo "   - Teste os controllers com @WebMvcTest"
+                    echo "   - Teste os services com @MockBean"
+                    echo "   - Teste as validações e exceções"
+                    echo "   - Teste cenários de sucesso e erro"
+                    exit 1
+                else
+                    echo "✅ Cobertura de testes adequada! 🎉"
+                    echo "🚀 Pronto para seguir com o desenvolvimento!"
+                fi
+            else
+                echo "⚠️ Não foi possível extrair dados de cobertura do XML"
+                echo "🔍 Conteúdo do arquivo JaCoCo:"
+                head -20 "$JACOCO_REPORT"
+            fi
+        else
+            echo "❌ Relatório do JaCoCo não encontrado em $JACOCO_REPORT"
+            echo "📁 Verificando arquivos no diretório target:"
+            find target/ -name "*.xml" -type f 2>/dev/null | head -10 || echo "Nenhum arquivo XML encontrado"
+            echo ""
+            echo "💡 Certifique-se de que o plugin JaCoCo está configurado no pom.xml"
+            exit 1
+        fi
+      
+    - name: Upload coverage reports to Codecov
+      if: github.event_name == 'push' || github.event_name == 'pull_request'
+      uses: codecov/codecov-action@v3
+      with:
+        file: target/site/jacoco/jacoco.xml
+        flags: unittests
+        name: codecov-levelup-api
+        fail_ci_if_error: false
+        
+    - name: Comment PR with coverage
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          const path = 'target/site/jacoco/jacoco.xml';
+          
+          if (fs.existsSync(path)) {
+            const coverage = fs.readFileSync(path, 'utf8');
+            const instructionMatch = coverage.match(/<counter type="INSTRUCTION"[^>]*covered="(\d+)"[^>]*missed="(\d+)"/);
+            
+            if (instructionMatch) {
+              const covered = parseInt(instructionMatch[1]);
+              const missed = parseInt(instructionMatch[2]);
+              const total = covered + missed;
+              const percentage = Math.round((covered * 100) / total);
+              
+              // Extrair também cobertura de branches se disponível
+              const branchMatch = coverage.match(/<counter type="BRANCH"[^>]*covered="(\d+)"[^>]*missed="(\d+)"/);
+              let branchCoverage = "N/A";
+              if (branchMatch) {
+                const branchCovered = parseInt(branchMatch[1]);
+                const branchMissed = parseInt(branchMatch[2]);
+                const branchTotal = branchCovered + branchMissed;
+                branchCoverage = branchTotal > 0 ? Math.round((branchCovered * 100) / branchTotal) + "%" : "N/A";
+              }
+              
+              const emoji = percentage >= 70 ? '✅' : '⚠️';
+              const status = percentage >= 70 ? 'Cobertura adequada!' : 'Cobertura abaixo do recomendado (70%)';
+              
+              const body = `## 📊 Relatório de Cobertura de Testes ${emoji}
+              
+              | Métrica | Valor |
+              |---------|-------|
+              | 🎯 **Cobertura de Instruções** | **${percentage}%** |
+              | 🌿 **Cobertura de Branches** | **${branchCoverage}** |
+              | ✅ Instruções cobertas | ${covered.toLocaleString()} |
+              | ❌ Instruções não cobertas | ${missed.toLocaleString()} |
+              | 📊 Total de instruções | ${total.toLocaleString()} |
+              
+              ### ${status}
+              
+              ${percentage < 70 ? `
+              #### 💡 Dicas para melhorar a cobertura:
+              - Teste os endpoints da API com \`@WebMvcTest\`
+              - Teste a lógica de negócio nos services
+              - Teste cenários de erro e validações
+              - Teste as entidades JPA e relacionamentos
+              ` : '🎉 Excelente trabalho! Continue assim!'}
+              
+              ---
+              *Relatório gerado automaticamente pelo GitHub Actions* 🤖`;
+              
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: body
+              });
+            }
+          } else {
+            const body = `## ❌ Erro no Relatório de Cobertura
+            
+            Não foi possível gerar o relatório de cobertura de testes.
+            
+            **Possíveis causas:**
+            - Plugin JaCoCo não configurado no pom.xml
+            - Falha na execução dos testes
+            - Erro na geração do relatório
+            
+            Por favor, verifique os logs do workflow para mais detalhes.`;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });
+          }
+          
+    - name: Upload test artifacts
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results-${{ github.ref_name }}
+        path: |
+          target/site/jacoco/
+          target/surefire-reports/
+        retention-days: 30
