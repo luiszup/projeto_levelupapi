@@ -33,48 +33,85 @@ jobs:
       run: chmod +x mvnw
         
     - name: Run tests and generate coverage report
-      run: ./mvnw clean verify
+      run: |
+        chmod +x mvnw
+        ./mvnw clean verify
       
     - name: Display coverage in logs
       run: |
         JACOCO_REPORT="target/site/jacoco/jacoco.xml"
         if [ -f "$JACOCO_REPORT" ]; then
             echo "📊 === RELATÓRIO DE COBERTURA ==="
+            echo "🌿 Branch atual: ${{ github.ref_name }}"
+            echo "📁 Arquivo encontrado: $JACOCO_REPORT"
+            echo ""
             
-            # Extrair cobertura usando grep mais robusto
-            COVERED=$(grep '<counter type="INSTRUCTION"' "$JACOCO_REPORT" | grep -o 'covered="[0-9]*"' | grep -o '[0-9]*')
-            MISSED=$(grep '<counter type="INSTRUCTION"' "$JACOCO_REPORT" | grep -o 'missed="[0-9]*"' | grep -o '[0-9]*')
+            # Extrair dados usando sed de forma mais robusta
+            INSTRUCTION_LINE=$(grep '<counter type="INSTRUCTION"' "$JACOCO_REPORT" | head -1)
             
-            if [ ! -z "$COVERED" ] && [ ! -z "$MISSED" ]; then
-                TOTAL=$((COVERED + MISSED))
-                COVERAGE=$((COVERED * 100 / TOTAL))
+            if [ ! -z "$INSTRUCTION_LINE" ]; then
+                echo "🔍 Linha de instruções: $INSTRUCTION_LINE"
                 
-                echo "✅ Instruções cobertas: $COVERED"
-                echo "❌ Instruções não cobertas: $MISSED"
-                echo "📊 Total de instruções: $TOTAL"
-                echo "🏆 Cobertura total: $COVERAGE%"
-                echo "🌿 Branch atual: ${{ github.ref_name }}"
-                echo "================================"
+                # Extrair covered e missed usando sed
+                COVERED=$(echo "$INSTRUCTION_LINE" | sed -n 's/.*covered="\([0-9]*\)".*/\1/p')
+                MISSED=$(echo "$INSTRUCTION_LINE" | sed -n 's/.*missed="\([0-9]*\)".*/\1/p')
                 
-                # Define o mínimo de cobertura
-                MIN_COVERAGE=70
+                echo "🔢 Valores extraídos - Covered: '$COVERED', Missed: '$MISSED'"
                 
-                if [ $COVERAGE -lt $MIN_COVERAGE ]; then
-                    echo "❌ ERRO: Cobertura de testes ($COVERAGE%) abaixo do mínimo ($MIN_COVERAGE%)"
-                    echo "💡 Adicione mais testes para melhorar a cobertura"
-                    echo "📝 Sugestões:"
-                    echo "   - Teste os controllers com @WebMvcTest"
-                    echo "   - Teste os services com @MockBean"
-                    echo "   - Teste as validações e exceções"
-                    echo "   - Teste cenários de sucesso e erro"
-                    exit 1
+                if [ ! -z "$COVERED" ] && [ ! -z "$MISSED" ] && [ "$COVERED" != "" ] && [ "$MISSED" != "" ]; then
+                    TOTAL=$((COVERED + MISSED))
+                    
+                    if [ $TOTAL -gt 0 ]; then
+                        COVERAGE=$((COVERED * 100 / TOTAL))
+                        
+                        echo "================================"
+                        echo "✅ Instruções cobertas: $COVERED"
+                        echo "❌ Instruções não cobertas: $MISSED"
+                        echo "📊 Total de instruções: $TOTAL"
+                        echo "🏆 Cobertura total: $COVERAGE%"
+                        echo "================================"
+                        
+                        # Define o mínimo de cobertura (alinhado com pom.xml)
+                        MIN_COVERAGE=65
+                        
+                        if [ $COVERAGE -lt $MIN_COVERAGE ]; then
+                            echo "❌ ERRO: Cobertura de testes ($COVERAGE%) abaixo do mínimo ($MIN_COVERAGE%)"
+                            echo "💡 Adicione mais testes para melhorar a cobertura"
+                            echo "📝 Sugestões:"
+                            echo "   - Teste os controllers com @WebMvcTest"
+                            echo "   - Teste os services com @MockBean"
+                            echo "   - Teste as validações e exceções"
+                            echo "   - Teste cenários de sucesso e erro"
+                            exit 1
+                        else
+                            echo "✅ Cobertura de testes adequada! 🎉"
+                            echo "🚀 Pronto para seguir com o desenvolvimento!"
+                        fi
+                    else
+                        echo "⚠️ Total de instruções é zero"
+                        echo "📄 Conteúdo do XML (primeiras 10 linhas):"
+                        head -10 "$JACOCO_REPORT"
+                    fi
                 else
-                    echo "✅ Cobertura de testes adequada! 🎉"
-                    echo "🚀 Pronto para seguir com o desenvolvimento!"
+                    echo "⚠️ Não foi possível extrair os valores numéricos"
+                    echo "📄 Tentando abordagem alternativa..."
+                    
+                    # Abordagem alternativa - contar linhas do XML
+                    TOTAL_COUNTERS=$(grep -c '<counter type="INSTRUCTION"' "$JACOCO_REPORT")
+                    echo "📊 Total de contadores encontrados: $TOTAL_COUNTERS"
+                    
+                    if [ $TOTAL_COUNTERS -gt 0 ]; then
+                        echo "✅ Relatório gerado com sucesso!"
+                        echo "📋 Verifique o arquivo em: target/site/jacoco/index.html"
+                    else
+                        echo "❌ Nenhum contador de instruções encontrado"
+                        echo "📄 Primeiras 20 linhas do arquivo:"
+                        head -20 "$JACOCO_REPORT"
+                    fi
                 fi
             else
-                echo "⚠️ Não foi possível extrair dados de cobertura do XML"
-                echo "🔍 Conteúdo do arquivo JaCoCo:"
+                echo "❌ Linha de instruções não encontrada no XML"
+                echo "📄 Conteúdo do arquivo (primeiras 20 linhas):"
                 head -20 "$JACOCO_REPORT"
             fi
         else
