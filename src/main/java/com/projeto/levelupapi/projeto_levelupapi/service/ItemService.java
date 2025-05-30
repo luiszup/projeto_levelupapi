@@ -27,6 +27,12 @@ public class ItemService {
 
     public Item createItem(String name, String description) {
         logger.info("Creating item: {}", name);
+        
+        // Validação do nome
+        if (name == null || name.trim().isEmpty()) {
+            throw new BadRequestException("O nome do item não pode ser nulo ou vazio");
+        }
+        
         if (itemRepository.findByName(name).isPresent()) {
             logger.warn("Item already exists: {}", name);
             throw new ResourceAlreadyExistsException("O item com nome '" + name + "' já existe");
@@ -68,10 +74,10 @@ public class ItemService {
             items.addAll(Arrays.asList("Machado de Ferro", "Poção de Mana", "Armadura Reforçada"));
         }
         if (level >= 4) {
-            items.addAll(Arrays.asList("Arco Longo", "Botas de Velocidade"));
+            items.addAll(Arrays.asList("Armadura de Ferro", "Botas de Velocidade", "Elmo Protetor"));
         }
         if (level >= 5) {
-            items.addAll(Arrays.asList("Espada de Prata", "Escudo Mágico", "Anel de Poder"));
+            items.addAll(Arrays.asList("Espada Flamejante", "Escudo Mágico", "Anel de Poder"));
         }
         if (level >= 7) {
             items.addAll(Arrays.asList("Armadura de Placas", "Poção Superior de Cura"));
