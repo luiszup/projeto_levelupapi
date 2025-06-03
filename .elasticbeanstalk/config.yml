@@ -1,0 +1,11 @@
+branch-defaults:
+  infra:
+    environment: null
+    group_suffix: null
+  master:
+    environment: levelupapi-env
+global:
+  application_name: levelupapi
+  default_region: us-east-2
+  profile: null
+  sc: git

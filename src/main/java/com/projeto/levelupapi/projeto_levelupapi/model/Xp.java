@@ -1,4 +1,3 @@
-
 package com.projeto.levelupapi.projeto_levelupapi.model;
 
 import jakarta.persistence.*;
@@ -15,7 +14,7 @@ public class Xp {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;  // Relacionamento com a entidade User
 
@@ -30,9 +29,11 @@ public class Xp {
 
     // Verifica se o jogador subiu de nível
     private void checkLevelUp() {
-        while (this.xpPoints >= xpRequiredForLevelUp()) {
+        int requiredXp = xpRequiredForLevelUp();
+        while (this.xpPoints >= requiredXp) {
             this.level++;
-            this.xpPoints -= xpRequiredForLevelUp();  // Reseta a XP extra após subir de nível
+            this.xpPoints -= requiredXp;  // Subtrai apenas o XP necessário para o nível atual
+            requiredXp = xpRequiredForLevelUp(); // Recalcula para o próximo nível
         }
     }
 

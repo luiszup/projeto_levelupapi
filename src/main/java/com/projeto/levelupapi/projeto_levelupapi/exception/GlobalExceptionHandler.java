@@ -129,6 +129,24 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 
+    // Tratamento para UnsupportedOperationException
+    @ExceptionHandler(UnsupportedOperationException.class)
+    public ResponseEntity<ErrorDetails> handleUnsupportedOperationException(
+            UnsupportedOperationException exception, WebRequest request) {
+        
+        System.err.println("UnsupportedOperationException details: " + exception.getMessage());
+        exception.printStackTrace();
+        
+        ErrorDetails errorDetails = new ErrorDetails(
+                LocalDateTime.now(),
+                "Erro interno: " + exception.getMessage(),
+                request.getDescription(false),
+                exception.getStackTrace()
+        );
+        
+        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     // Tratamento para exceções genéricas
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorDetails> handleGlobalException(
